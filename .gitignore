@@ -1,5 +1,6 @@
 #Data files (ex. iris.data)
 *.data
+*.txt
 
 #Ipython Checkpoints
 *.ipynb_checkpoints
