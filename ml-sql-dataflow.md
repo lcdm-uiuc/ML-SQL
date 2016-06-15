@@ -21,7 +21,7 @@ ___
 
 Reads *file* into a matrix to be operated on. The file should be in some CSV like format with values separated by the *separtor*. Additionally the presence of a *header* can be specified along with names for *column_names*.
 
-### REPLACE ([*column_name*, method=*{mean, NaN, nearest_neighbor, etc.}*])
+### REPLACE ([*column_name*, method=*{mean, NaN, nearest_neighbor, etc., drop_row}*])
 
 Changes missing or NaN values in specified columns by column mean, 0, NaN, etc. Specified as a list of tuples with the *column_name* and the method*.
 
@@ -64,3 +64,17 @@ Specifies the unsupervised machine learning *algorithm* being used to cluster da
 ### USING (*number_clusters*, *lambda*, etc.)
 
 Used to specify hyperparameters or values for some machine learning algorithms.
+
+
+___
+___
+
+## Examples
+
+1. Auto-mpg dataset (regression)
+
+    - **READ** "auto-mpg.data" **REPLACE** [2: drop_row, 6: drop_row] **SPLIT** train = .8 test = .2 **CLASSIFY** simple predictors = [1:7] labels = 8 **USING** lambda = .01 **EVALUATE** r-squared **VISUALIZE** scatter_plot
+    
+1. Seeds dataset (cluster)
+
+    - **READ** "seeds.txt" **REPLACE** [2: mean, 6: mean] **TRANSFORM** PCA=2 **CLUSTER** all k-means **USING** clusters = 3 **EVALUATE** residuals **VISUALIZE** diagnostics
