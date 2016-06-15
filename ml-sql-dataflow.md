@@ -15,7 +15,7 @@ I will assume we start with a datafile (ex. already have the .csv, .txt, .data, 
 ___
 ___
 
-## Universal
+## Universal Keywords
 
 ### READ (*file*, *separator*, *header*, *column_names*)
 
@@ -43,7 +43,7 @@ Visualizations or graphs the user wants to see to evaluate model performance.
 
 ___
 
-## Classification/Regression
+## Classification/Regression Keywords
 
 ### CLASSIFY (predictors, labels, algorithm={*svm*, *regression*, *lasso*, *ridge*, etc.})
 
@@ -55,7 +55,7 @@ Used to specify hyperparameters or values for some machine learning algorithms.
     
 ___
 
-## Clustering
+## Clustering Keywords
 
 ### CLUSTER (columns, algorithm={*k-means*, *nonparametric*})
 
