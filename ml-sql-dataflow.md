@@ -27,6 +27,14 @@ Used to scale, combine, or modify the data that is read in.
 
 Splits the data into training, testing, and validation sets for model building. *train*, *test*, and *validation* can either be percentages that sum to 1 or hard coded values that specify the relative sizes of each of the sets.
 
+### EVALUATE (*deviance*, *r-squared*, *residuals*, etc.)
+
+Defines the metrics that the user wants to see to evaluate their machine learning model.
+
+### VISUALIZE (*scatter_plot*, *diagnostics*, etc)
+
+Visualizations or graphs the user wants to see to evaluate model performance.
+
 ___
 
 ## Classification/Regression
@@ -38,14 +46,15 @@ Specifies the supervised machine learning *algorithm* being used to classify dat
 ### USING (*lambda*, *c*, etc.)
 
 Used to specify hyperparameters or values for some machine learning algorithms.
-
-### EVALUATE (*deviance*, *r-squared*, *residuals*, etc.)
-
-Defines the metrics that the user wants to see to evaluate their machine learning model.
-
-### VISUALIZE (*scatter_plot*, *diagnostics*, etc)
     
 ___
 
 ## Clustering
 
+### CLUSTER (columns, algorithm={*k-means*, *nonparametric*})
+
+Specifies the unsupervised machine learning *algorithm* being used to cluster data. The *columns* are specified using column names or indices.
+
+### USING (*number_clusters*, *lambda*, etc.)
+
+Used to specify hyperparameters or values for some machine learning algorithms.
