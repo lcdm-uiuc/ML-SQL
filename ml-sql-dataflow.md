@@ -2,6 +2,12 @@
 
 ___
 
+This document specifies a preliminary set of keywords that we can use to create a SQL like language for machine learning. There are a few keywords that are used for all machine learning tasks, however, some there is a slight difference between supervised (classification and regression) and unsupervised algorithms (clustering, etc.) which can be seen below. 
+
+These keywords were formed based off examples dataflows included in this repository as well as prior machine learning projects. 
+
+At the bottom I also include a few examples of regression and clustering tasks written in this language. 
+
 ### Assumptions
 
 I will assume we start with a datafile (ex. already have the .csv, .txt, .data, etc.) downloaded locally on our computer. From here our language will be able to perform machine learning tasks on these datasets.
