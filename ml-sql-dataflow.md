@@ -57,7 +57,7 @@ ___
 
 ## Classification/Regression Keywords
 
-### CLASSIFY 
+### CLASSIFY / REGRESS
 
 #### (predictors, labels, algorithm={*svm*, *regression*, *lasso*, *ridge*, etc.})
 
