@@ -7,7 +7,16 @@ import split
 import regression
 import classify
 
-#Combining READ and SPLIT keywords into one clause for combined use
-read_split = read + split
-read_split_classify = read + split + classify
-read_split_classify_regression = read + split + classify + regression
+def parser():
+	#Define all keywords
+	READ = read.define_read()
+	SPLIT = split.define_split()
+	REGRESSION = regression.define_regression()
+	CLASSIFY = classify.define_classify()
+
+	#Combining READ and SPLIT keywords into one clause for combined use
+	read_split = READ + SPLIT
+	read_split_classify = READ + SPLIT + CLASSIFY
+	read_split_classify_regression = READ + SPLIT + CLASSIFY + REGRESSION
+
+	return read_split_classify_regression

@@ -1,6 +1,6 @@
 #Libraries
 import string
-from pyparsing import Literal
+from pyparsing import Literal, Optional
 
 #Define valid symbols and letters
 letters = string.ascii_letters
@@ -19,3 +19,6 @@ bools = Literal("True") + Literal("False")
 openParen = Literal("(").suppress()
 closeParen = Literal(")").suppress()
 Quote = Literal('"').suppress()
+
+#Optional comma for some lists
+ocomma = Optional(",").suppress()
