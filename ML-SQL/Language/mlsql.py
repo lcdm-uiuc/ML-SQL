@@ -3,7 +3,7 @@ import sys
 sys.path.insert(0, 'parser/')
 sys.path.insert(0, 'functions/')
 
-from parser import parser
+from parser import mlsqlparser
 from dataflow import handle
 
 def execute(command):
@@ -11,21 +11,21 @@ def execute(command):
 	Used to parse and execute an ML-SQL command supplied by the user. 
 	This function is meant to exported for use in other modules.
 	"""
-	myparser = parser()
+	myparser = mlsqlparser()
 	result = myparser.parseString(command)
 	print(result)
 	handle(result)
 
 
 
-def repl(parser):
+def repl():
 	"""
 	Used to create a read-evaluate-print-loop sequence for the ML-SQL langauge.
 	This function will continually parse and execute user input from command
 	line until the word exit is typed. 
 	"""
 	print("Initializing Parser...")
-	myparser = parser()
+	myparser = mlsqlparser()
 	
 	print("ML-SQL Parser is ready for use")
 
@@ -40,4 +40,4 @@ def repl(parser):
 			handle(result)
 
 if __name__ == "__main__":
-	repl(parser)
+	repl()

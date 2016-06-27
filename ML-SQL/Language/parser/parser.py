@@ -10,7 +10,7 @@ import split
 import regression
 import classify
 
-def parser():
+def mlsqlparser():
 	#Define all keywords
 	READ = read.define_read()
 	SPLIT = split.define_split()
