@@ -1,6 +1,9 @@
-import sys
+import sys, os
 
-sys.path.insert(0, 'keywords/')
+if os.path.isdir('keywords'):
+	sys.path.insert(0, 'keywords/')
+else:
+	sys.path.insert(0, 'parser/keywords/')
 
 import read
 import split
