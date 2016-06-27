@@ -1,8 +1,10 @@
 import sys
 
 sys.path.insert(0, 'parser/')
+sys.path.insert(0, 'functions/')
 
 from parser import parser
+from dataflow import handle
 
 def execute(command):
 	"""
@@ -12,6 +14,8 @@ def execute(command):
 	myparser = parser()
 	result = myparser.parseString(command)
 	print(result)
+	handle(result)
+
 
 
 def repl(parser):
@@ -33,6 +37,7 @@ def repl(parser):
 		else:
 			result = myparser.parseString(command)
 			print(result)
+			handle(result)
 
 if __name__ == "__main__":
 	repl(parser)
