@@ -1,8 +1,5 @@
 import sys
 
-sys.path.insert(0, 'parser/')
-sys.path.insert(0, 'functions/')
-
 from parser import mlsqlparser
 from dataflow import handle
 
