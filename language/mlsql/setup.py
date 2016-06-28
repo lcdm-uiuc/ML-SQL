@@ -7,6 +7,6 @@ setup(name='mlsql',
     author='Neeraj Asthana',
     author_email='neeasthana@gmail.com',
     license='UIUC',
-    packages=['mlsql'],
     install_requires=['markdown',],
+    packages=["mlsql",],
     zip_safe=False)
