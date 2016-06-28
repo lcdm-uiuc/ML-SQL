@@ -1,7 +1,7 @@
-import .keywords.read import define_read
-import .keywords.split import define_split
-import .keywords.regression import define_regression
-import .keywords.classify import define_classify
+from .keywords.read import define_read
+from .keywords.split import define_split
+from .keywords.regression import define_regression
+from .keywords.classify import define_classify
 
 def mlsqlparser():
 	#Define all keywords
