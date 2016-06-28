@@ -15,4 +15,6 @@ def handle(parsing):
     algo = str(parsing.algorithm)
 
     data = handle_read(filename, sep, header)
-    print(data.head())
+    if data:
+        #Data was read in properly
+        print(data.head())
