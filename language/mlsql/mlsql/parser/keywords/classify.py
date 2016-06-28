@@ -1,18 +1,14 @@
 from .grammer import *
+from .classify_algorithms import svm, logistic
 from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst
 
 def define_classify():
 	#Algorithm Definitions
 	algoPhrase = (Literal ("algorithm") + Literal("=")).suppress()
-	svmPhrase = oneOf(["svm", "SVM"])
-	logPhrase = oneOf(["logistic", "Logistic", "LOGISTIC"])
 
-	#Options for classifiers
-
-	#Compositions
-	svm = svmPhrase + Optional(openParen + closeParen)
-	log = logPhrase + Optional(openParen + closeParen)
-	algo = algoPhrase + MatchFirst([svm, log]).setResultsName("algorithm")
+	svmd = svm.define_svm()
+	logd = logistic.define_logistic()
+	algo = algoPhrase + MatchFirst([svmd, logd]).setResultsName("algorithm")
 
 	#define so that there can be multiple verisions of Classify
 	classifyKeyword = oneOf(["Classify", "CLASSIFY"]).suppress()
