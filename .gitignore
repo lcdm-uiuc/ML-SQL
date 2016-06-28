@@ -4,3 +4,6 @@
 
 #Ipython Checkpoints
 *.ipynb_checkpoints
+
+#Python Caches
+__pycache__
