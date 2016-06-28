@@ -1,4 +1,4 @@
-from grammer import *
+from .grammer import *
 from pyparsing import oneOf, Literal, Word, Optional, Combine
 
 def define_split():

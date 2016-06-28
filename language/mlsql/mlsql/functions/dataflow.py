@@ -1,14 +1,7 @@
 """
 Processes input after it has been parsed. Performs the dataflow for input. 
 """
-import sys, os
-
-if os.path.isdir('keywords'):
-    sys.path.insert(0, 'keywords/')
-else:
-    sys.path.insert(0, 'functions/keywords/')
-
-from read_functions import handle_read
+from .keywords.read_functions import handle_read
 
 def handle(parsing):
     #Extract relevant features from the query

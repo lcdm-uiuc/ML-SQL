@@ -1,21 +1,14 @@
-import sys, os
-
-if os.path.isdir('keywords'):
-	sys.path.insert(0, 'keywords/')
-else:
-	sys.path.insert(0, 'parser/keywords/')
-
-import read
-import split
-import regression
-import classify
+import .keywords.read import define_read
+import .keywords.split import define_split
+import .keywords.regression import define_regression
+import .keywords.classify import define_classify
 
 def mlsqlparser():
 	#Define all keywords
-	READ = read.define_read()
-	SPLIT = split.define_split()
-	REGRESSION = regression.define_regression()
-	CLASSIFY = classify.define_classify()
+	READ = define_read()
+	SPLIT = define_split()
+	REGRESSION = define_regression()
+	CLASSIFY = define_classify()
 
 	#Combining READ and SPLIT keywords into one clause for combined use
 	read_split = READ + SPLIT

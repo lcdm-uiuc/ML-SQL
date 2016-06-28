@@ -1,4 +1,4 @@
-from grammer import *
+from .grammer import *
 from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst
 
 def define_regression():

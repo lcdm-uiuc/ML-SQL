@@ -1,7 +1,7 @@
 import sys
 
-from parser import mlsqlparser
-from dataflow import handle
+from .parser.parser import mlsqlparser
+from .functions.dataflow import handle
 
 def execute(command):
 	"""

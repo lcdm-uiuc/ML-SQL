@@ -1,4 +1,4 @@
-from grammer import *
+from .grammer import *
 from pyparsing import Word, oneOf, Optional, Or, Literal
 
 def define_read():
