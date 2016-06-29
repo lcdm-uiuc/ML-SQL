@@ -24,8 +24,8 @@ def handle(parsing):
     result += "separator: " + sep + "\n"
     result += "train size: " + train + "\n"
     result += "test size: " + test + "\n"
-    result += "predictors" + predictors + "\n"
-    result += "label: " + label + "\n"
+    result += "predictors: " + str(predictors) + "\n"
+    result += "label: " + str(label) + "\n"
     result += "algorithm: " + algo + "\n"
 
     print(result)
