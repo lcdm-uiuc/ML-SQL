@@ -27,3 +27,5 @@ def handle(parsing):
     result += "predictors" + predictors + "\n"
     result += "label: " + label + "\n"
     result += "algorithm: " + algo + "\n"
+
+    print(result)
