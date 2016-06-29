@@ -15,7 +15,7 @@ def handle(parsing):
     algo = str(parsing.algorithm)
 
     data = handle_read(filename, sep, header)
-    if data:
+    if data is not None:
         #Data was read in properly
         print(data.head())
 
