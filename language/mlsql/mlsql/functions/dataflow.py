@@ -18,3 +18,12 @@ def handle(parsing):
     if data:
         #Data was read in properly
         print(data.head())
+
+    result = "filename: " + filename + "\n"
+    result += "header: " + header + "\n"
+    result += "separator: " + sep + "\n"
+    result += "train size: " + train + "\n"
+    result += "test size: " + test + "\n"
+    result += "predictors" + predictors + "\n"
+    result += "label: " + label + "\n"
+    result += "algorithm: " + algo + "\n"
