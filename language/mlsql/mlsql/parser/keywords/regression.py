@@ -1,36 +1,32 @@
 from .grammer import *
 from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst
+from .regression_algorithms import simple, lasso, ridge
 
 def define_regression():
-	#Algorithm Definitions
-	algoPhrase = (Literal ("algorithm") + Literal("=")).suppress()
-	simplePhrase = oneOf(["simple", "SIMPLE", "Simple"])
-	lassoPhrase = oneOf(["lasso", "Lasso", "LASSO"])
-	ridgePhrase = oneOf(["ridge", "Ridge", "RIDGE"])
+    #Algorithm keyword definitions
+    algoPhrase = (Literal ("algorithm") + Literal("=")).suppress()
+    
+    #Algorithms 
+    simpled = simple.define_simple()
+    lassod = lasso.define_lasso()
+    ridged = ridge.define_ridge()
+    algo = algoPhrase + MatchFirst([simpled, lassod, ridged]).setResultsName("algorithm")
 
-	#Options for classifiers
+    #define so that there can be multiple verisions of Regression
+    regressionKeyword = oneOf(["Regression", "REGRESSION"]).suppress()
 
-	#Compositions
-	simple = simplePhrase + Optional(openParen + closeParen)
-	lasso = lassoPhrase + Optional(openParen + closeParen)
-	ridge = ridgePhrase + Optional(openParen + closeParen)
-	algo = algoPhrase + MatchFirst([simple, lasso, ridge]).setResultsName("algorithm")
+    #Phrases to organize predictor and label column numbers
+    predPhrase = (Literal("predictors") + Literal("=")).suppress()
+    labelPhrase = (Literal("label") + Literal("=")).suppress()
 
-	#define so that there can be multiple verisions of Regression
-	regressionKeyword = oneOf(["Regression", "REGRESSION"]).suppress()
+    #define predictor and label column numbers
+    predictorsDef = OneOrMore(Word(numbers) + ocomma).setResultsName("predictors")
+    labelDef = Word(numbers).setResultsName("label")
 
-	#Phrases to organize predictor and label column numbers
-	predPhrase = (Literal("predictors") + Literal("=")).suppress()
-	labelPhrase = (Literal("label") + Literal("=")).suppress()
+    #combine phrases with found column numbers
+    preds = predPhrase + openParen + predictorsDef + closeParen
+    labels = labelPhrase + labelDef
 
-	#define predictor and label column numbers
-	predictorsDef = OneOrMore(Word(numbers) + ocomma).setResultsName("predictors")
-	labelDef = Word(numbers).setResultsName("label")
+    regression = Optional(regressionKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen)
 
-	#combine phrases with found column numbers
-	preds = predPhrase + openParen + predictorsDef + closeParen
-	labels = labelPhrase + labelDef
-
-	regression = Optional(regressionKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen)
-
-	return regression
+    return regression
