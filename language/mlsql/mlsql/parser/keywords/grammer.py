@@ -1,3 +1,7 @@
+"""
+Defines lists of grammer constants to be used for language construction
+"""
+
 #Libraries
 import string
 from pyparsing import Literal, Optional
