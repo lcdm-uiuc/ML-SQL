@@ -11,22 +11,25 @@ def handle_read(userfile, separator, header):
     #create dataframe for read in file
     df = None
 
+    #handle different parameters for read
+    head = _handle_header(header)
+    separ = _handle_separator(separator)
+
     #attempt to read file with given parameters
     try:
-        header = handle_header(header)
-        separator = handle_separator(separator)
-        df = read_csv(userfile, sep = separator, header = header)
+        df = read_csv(userfile, sep = separ, header = head)
     except OSError as e:
         print("Error importing file" + userfile)
         print(e)
         return None
     return (df)
 
-def handle_header(header):
+
+def _handle_header(header):
     """
     Translates header into a proper value to be read by read_csv functions from pandas
     """
-    if header is None:
+    if header is None or header == "":
         return None
     elif header.lower() == "false":
         return None
@@ -35,7 +38,8 @@ def handle_header(header):
     else:
         return True
 
-def handle_separator(sep):
+
+def _handle_separator(sep):
     """
     Translates separator into a proper value to be read by read_csv functions from pandas
     """
