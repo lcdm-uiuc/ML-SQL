@@ -1,4 +1,5 @@
 from .grammer import *
+from ._constants import choice_columns, column
 from pyparsing import CaselessLiteral, Literal, oneOf, Optional, Word, OneOrMore, MatchFirst, Group, delimitedList
 
 def define_replace():
@@ -6,7 +7,7 @@ def define_replace():
     replaceKeyword = oneOf(["Replace", "REPLACE"]).suppress()
 
     #Define the columns that need to be replaced
-    columns = delimitedList(Word(numbers), delim = ",").setResultsName("replaceColumns")
+    replace_cols = choice_columns.setResultsName("replaceColumns")
 
     #defines possible values or optional replacement words 
     value = Quote + Word(everythingWOQuotes) + Quote
@@ -14,7 +15,7 @@ def define_replace():
     replacements = MatchFirst(options + [value]).setResultsName("replaceValue")
 
     #single group for column replace
-    single_replacement = openParen + columns + ocomma + replacements + closeParen
+    single_replacement = openParen + replace_cols + ocomma + replacements + closeParen
     group_replacements = delimitedList(single_replacement, delim = ",")
 
     #putting it all together to create replacement

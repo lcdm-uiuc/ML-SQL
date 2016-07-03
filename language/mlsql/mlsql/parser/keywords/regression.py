@@ -1,5 +1,6 @@
 from .grammer import *
-from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst
+from ._constants import choice_columns, column
+from pyparsing import Literal, oneOf, Optional, Word, MatchFirst
 from .regression_algorithms import simple, lasso, ridge
 
 def define_regression():
@@ -20,8 +21,8 @@ def define_regression():
     labelPhrase = (Literal("label") + Literal("=")).suppress()
 
     #define predictor and label column numbers
-    predictorsDef = OneOrMore(Word(numbers) + ocomma).setResultsName("predictors")
-    labelDef = Word(numbers).setResultsName("label")
+    predictorsDef = choice_columns.setResultsName("predictors")
+    labelDef = column.setResultsName("label")
 
     #combine phrases with found column numbers
     preds = predPhrase + openParen + predictorsDef + closeParen
