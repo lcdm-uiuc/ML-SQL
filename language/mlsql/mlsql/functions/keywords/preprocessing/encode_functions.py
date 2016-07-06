@@ -4,7 +4,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.feature_extraction import DictVectorizer
 
-
+  
 # Encodes Categorical variables to be numerical values 
 # Usage: 
 # encoder = EncodeCategorical()
