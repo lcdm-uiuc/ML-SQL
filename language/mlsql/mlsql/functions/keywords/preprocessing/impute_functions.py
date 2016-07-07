@@ -2,6 +2,8 @@ import pandas as pd
 import seaborn as sns
 from sklearn.preprocessing import Imputer
 from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.ensemble import RandomForestRegressor
+
 
 """
 Imputer Class
@@ -53,7 +55,6 @@ Parameters:
       'remove'
       'dummy'
       'rand_forest_reg'
-      'lin_reg'
 Returns: Imputed dataframe
 """
 def impute_missing(data, columns, impute_strategy='most_frequent', missing_values='NaN'):
@@ -65,9 +66,8 @@ def impute_missing(data, columns, impute_strategy='most_frequent', missing_value
   
   # Use custom functions
   else:
-
     if impute_strategy == 'remove':
-      cols_to_remove= list()
+      cols_to_impute= list()
       for col in data.columns:
         if missing_values in data[col]:
           cols_to_impute.append(col)
@@ -76,10 +76,9 @@ def impute_missing(data, columns, impute_strategy='most_frequent', missing_value
     if impute_strategy == 'dummy':
       return data.replace(missing_values, dummy_val) 
 
+    # Do some more research on this before starting
     if impute_strategy == 'rand_forest_reg':
-      return None
-
-    if impute_strategy == 'lin_reg':
+      print("RANDOM FOREST REGRESSOR NOT IMPLEMENTED")
       return None
 
     return None
