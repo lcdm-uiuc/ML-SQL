@@ -36,5 +36,6 @@ def handle(parsing):
     classify = handle_classify(data, algo, predictors, label)
 
     #regression
+    #classify = handle_regression(data, algo, predictors, label)
 
     print(result)
