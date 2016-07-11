@@ -47,3 +47,31 @@ def _handle_separator(sep):
         return ","
     else:
         return sep
+
+
+def _check_file_extension(filepath):
+    """
+    Checks if the filename extension ends with a .mlsql suffix as the file type
+    @return: boolean
+    """
+    dotsplit = filepath.split(".")
+    extension = dotsplit[-1]
+    return extension == "mlsql"
+
+
+def _read_model(filename):
+    """
+    Reads a model from a .mlsql file that has already been trained
+    Returns the model
+    @TODO
+    """
+    pass
+
+
+def _save_model(filename):
+    """
+    Save a model that has already been trained into a .mlsql file
+    The file is saved to the current working directory with the name of the file
+    @TODO
+    """
+    pass
