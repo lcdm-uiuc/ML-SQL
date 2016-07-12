@@ -72,13 +72,12 @@ def impute_missing(data, columns, impute_strategy='most_frequent', missing_value
         if missing_values in data[col]:
           cols_to_impute.append(col)
       return remove_columns(data, cols_to_remove)
-
     if impute_strategy == 'dummy':
       return data.replace(missing_values, dummy_val) 
 
-    # Do some more research on this before starting
+    # Do some more research on this before implementing
     if impute_strategy == 'rand_forest_reg':
-      print("RANDOM FOREST REGRESSOR NOT IMPLEMENTED")
+      print("RANDOM FOREST REGRESSOR NOT IMPLEMENTED NO IMPUTATION HAPPENED")
       return None
 
     return None
