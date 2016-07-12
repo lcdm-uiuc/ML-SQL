@@ -3,6 +3,7 @@ Handles persisting models by saving and loading them into files
 """
 
 from .filepath import get_model_type, get_relative_filename
+import json
 
 # Constant defining how a file is split into separate components
 SEP = ";"
@@ -30,8 +31,32 @@ def save_model(filename, model):
 
         #get relevant features
         name = _get_model_type(model)
-        params = "coef_" + str(model.get_params())
+        params = jason.dumps(model.get_params())
 
-        writing = name + SEP + params
+        f.write(name)
+        f.write(params)
 
-        f.write(writing)
+
+def load_model(filename):
+	text = None
+	model = None
+	with open(relative_file, 'r') as f:
+		model = f.readLine()
+		text = f.readLine()
+	
+	dictionary = json.loads(text)
+
+	fit = model_from_name(model)
+
+	fit.set_params(**dictionary)
+
+	return fit
+
+
+def model_from_name(name):
+	if name == "SVC":
+		from sklearn import svm
+		return svm.SVC()
+	else:
+		print("No match in file")
+		return None
