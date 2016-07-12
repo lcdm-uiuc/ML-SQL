@@ -4,7 +4,19 @@ Performs logic to handle the read keyword from ML-SQL language
 
 def handle_read(userfile, separator, header):
     """
+    Main exported function
     Performs logic to handle the read keyword from ML-SQL language
+    """
+    if _is_mlsql_file(userfile):
+        model = _read_model(userfile)
+    else:
+        return _read_data_file(userfile, separator, header)
+    
+
+
+def _read_data_file(userfile, separator, header):
+    """
+    Reads a CSV-like file from memory with options for header and separator
     """
     from pandas import read_csv
 
@@ -46,4 +58,14 @@ def _handle_separator(sep):
     if sep is None:
         return ","
     else:
-        return sep
+        return str(sep)
+
+
+def _is_mlsql_file(filepath):
+    """
+    Checks if the filename extension ends with a .mlsql suffix as the file type
+    @return: boolean
+    """
+    dotsplit = filepath.split(".")
+    extension = dotsplit[-1]
+    return extension == "mlsql"
