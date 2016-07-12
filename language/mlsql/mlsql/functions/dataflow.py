@@ -35,7 +35,57 @@ def handle(parsing):
     #classify
     classify = handle_classify(data, algo, predictors, label)
 
+    _save_model(classify)
+
     #regression
     #classify = handle_regression(data, algo, predictors, label)
 
     print(result)
+
+
+
+def _save_model(filename, model):
+    """
+    Save a model that has already been trained into a .mlsql file
+    The file is saved to the current working directory with the name of the file
+    @TODO
+    """
+    relative_file = _get_relative_filename(filename)
+
+    #ensure file does not already exist
+    from os.path import isfile
+    counter = 2
+    if isfile(relative_file):
+        relative_file  = relative_file + "_1"
+        while(isfile(relative_file)):
+            relative_file = relative_file[:-1] + str(counter)
+            counter += 1
+
+    #Open file for writing
+    with open(relative_file, 'w') as f:
+        read_data = f.read()
+
+        #get relevant features
+        name = _get_model_type(model)
+        params = "coef_" + str(model.get_params())
+
+        writing = name + ";" + params
+
+        f.write(writing)
+
+
+def _get_relative_filename(filename):
+    """
+    returns only the last part of a file (removes all subdirectories from filename)
+    """
+    slash_split = filename.split("/")
+    return filename[-1]
+
+
+def _get_model_type(model):
+    """
+    returns the name of a sklearn model (indentifies from string version of it)
+    """
+    stringm = str(model)
+    splitParen = stringm.split("/")
+    return splitParen[1]

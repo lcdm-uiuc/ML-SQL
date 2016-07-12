@@ -14,7 +14,7 @@ def mlsqlparser():
     REPLACE = define_replace()
 
     #Define comment
-    comment = _define_comment
+    comment = _define_comment()
 
     #Combining READ and SPLIT keywords into one clause for combined use
     read_split = READ + SPLIT
