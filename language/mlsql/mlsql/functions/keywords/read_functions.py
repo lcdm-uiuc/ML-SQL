@@ -69,12 +69,3 @@ def _is_mlsql_file(filepath):
     dotsplit = filepath.split(".")
     extension = dotsplit[-1]
     return extension == "mlsql"
-
-
-def _read_model(filename):
-    """
-    Reads a model from a .mlsql file that has already been trained
-    Returns the model
-    @TODO
-    """
-    pass

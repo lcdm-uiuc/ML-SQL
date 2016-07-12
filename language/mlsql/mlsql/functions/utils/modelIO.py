@@ -13,11 +13,8 @@ def save_model(filename, model):
     """
     Save a model that has already been trained into a .mlsql file
     The file is saved to the current working directory with the name of the file
-    @TODO
     """
     relative_file = get_relative_filename(filename)
-
-    print(relative_file)
 
     #ensure file does not already exist
     from os.path import isfile
@@ -41,6 +38,10 @@ def save_model(filename, model):
 
 
 def load_model(filename):
+	"""
+	Reads a model from a .mlsql file that has already been trained
+    @return: the model
+    """
 	text = None
 	model = None
 	with open(filename, 'r') as f:
@@ -48,9 +49,7 @@ def load_model(filename):
 		text = f.readline()
 	
 	dictionary = json.loads(text)
-
 	fit = model_from_name(model)
-
 	fit.set_params(**dictionary)
 
 	return fit
