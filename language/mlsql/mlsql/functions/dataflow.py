@@ -32,7 +32,8 @@ def handle(parsing):
 
     model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
 
-    _metrics_phase(model, X_test, y_test)
+    if model and model is not None:
+        _metrics_phase(model, X_test, y_test)
 
     #regression
     #classify = handle_regression(data, algo, predictors, label)
@@ -54,7 +55,7 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
 
     #Classification and Regression
     if not keywords["classify"] and not keywords["regression"]:
-        return None
+        return None, None, None
     
     elif keywords["classify"] and not keywords["regression"]:
         from .keywords.classify_functions import handle_classify
@@ -64,11 +65,11 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     elif not keywords["classify"] and keywords["regression"]:
         from .keywords.regression_functions import handle_regression
         mod = handle_regression(df, algorithm, preds, label, keywords["split"], train)
-        return mod
+        return mod, None, None
     
     else:
         print("Error: both classify and regression keywords present")
-        return None
+        return None, None, None
 
 
 def _apply_phase(keywords):
