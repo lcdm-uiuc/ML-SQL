@@ -14,7 +14,7 @@ def define_regression():
     algo = algoPhrase + MatchFirst([simpled, lassod, ridged]).setResultsName("algorithm")
 
     #define so that there can be multiple verisions of Regression
-    regressionKeyword = oneOf(["Regression", "REGRESSION"]).suppress()
+    regressionKeyword = oneOf(["Regression", "REGRESSION"]).setResultsName("regression")
 
     #Phrases to organize predictor and label column numbers
     predPhrase = (Literal("predictors") + Literal("=")).suppress()

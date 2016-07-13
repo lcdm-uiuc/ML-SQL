@@ -3,7 +3,7 @@ from pyparsing import oneOf, Literal, Word, Optional, Combine
 
 def define_split():
 	#define so that there can be multiple verisions of Split
-	splitKeyword = oneOf(["Split", "SPLIT"]).suppress()
+	splitKeyword = oneOf(["Split", "SPLIT"]).setResultsName("split")
 
 	#Phrases used to organize splits
 	trainPhrase = (Literal("train") + Literal("=")).suppress()
