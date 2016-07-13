@@ -30,7 +30,9 @@ def handle(parsing):
 
     print(result)
 
-    model = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
+    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
+
+    _metrics_phase(model, X_test, y_test)
 
     #regression
     #classify = handle_regression(data, algo, predictors, label)
@@ -50,15 +52,14 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     if keywords["replace"]:
         pass
 
-
     #Classification and Regression
     if not keywords["classify"] and not keywords["regression"]:
         return None
     
     elif keywords["classify"] and not keywords["regression"]:
         from .keywords.classify_functions import handle_classify
-        mod = handle_classify(df, algorithm, preds, label, keywords["split"], train)
-        return mod
+        mod, X_test, y_test = handle_classify(df, algorithm, preds, label, keywords["split"], train)
+        return mod, X_test, y_test
     
     elif not keywords["classify"] and keywords["regression"]:
         from .keywords.regression_functions import handle_regression
@@ -79,9 +80,10 @@ def _apply_phase(keywords):
     pass
 
 
-def _metrics_phase():
+def _metrics_phase(model, X_test, y_test):
     """
     Metrics phase of ML-SQL used to calculate or plot results
     Uses ML-SQL keywords: PLOT, CALCULATE, GRAPH
     """
-    pass
+    #Performance on test data
+    model.score(X_test, y_test)
