@@ -25,6 +25,8 @@ def handle(parsing):
     result += "label: " + str(label) + "\n"
     result += "algorithm: " + str(algo) + "\n"
 
+    print(result)
+
     #read file
     data = handle_read(filename, sep, header)
     if data is not None:
@@ -40,5 +42,3 @@ def handle(parsing):
 
     #regression
     #classify = handle_regression(data, algo, predictors, label)
-
-    print(result)
