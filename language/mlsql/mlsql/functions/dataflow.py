@@ -48,7 +48,7 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     df = handle_read(filename, sep, header)
     if df is not None:
         #Data was read in properly
-        print(data.head() + "\n")
+        print(df.head())
 
     if keywords["replace"]:
         pass
