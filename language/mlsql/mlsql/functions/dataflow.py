@@ -2,7 +2,6 @@
 Processes input after it has been parsed. Performs the dataflow for input. 
 """
 from .keywords.read_functions import handle_read
-from .keywords.classify_functions import handle_classify
 from .utils.modelIO import save_model
 from .utils.keywords import keyword_check
 
@@ -51,17 +50,24 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     if keywords["replace"]:
         pass
 
-    if keywords["split"]:
-        pass
 
-    print(keywords)
-
-    if keywords["classify"] and not keywords["regression"]:
-        pass
+    #Classification and Regression
+    if not keywords["classify"] and not keywords["regression"]:
+        return None
+    
+    elif keywords["classify"] and not keywords["regression"]:
+        from .keywords.classify_functions import handle_classify
+        mod = handle_classify(df, algorithm, preds, label, keywords["split"], train)
+        return mod
+    
     elif not keywords["classify"] and keywords["regression"]:
-        pass
+        from .keywords.regression_functions import handle_regression
+        mod = handle_regression(df, algorithm, preds, label, keywords["split"], train)
+        return mod
+    
     else:
         print("Error: both classify and regression keywords present")
+        return None
 
 
 def _apply_phase(keywords):
