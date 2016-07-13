@@ -12,7 +12,7 @@ def define_classify():
     algo = algoPhrase + MatchFirst([svmd, logd]).setResultsName("algorithm")
 
     #define so that there can be multiple verisions of Classify
-    classifyKeyword = oneOf(["Classify", "CLASSIFY"]).suppress()
+    classifyKeyword = oneOf(["Classify", "CLASSIFY"]).setResultsName("classify")
 
     #Phrases to organize predictor and label column numbers
     predPhrase = (Literal("predictors") + Literal("=")).suppress()

@@ -4,7 +4,7 @@ from pyparsing import CaselessLiteral, Literal, oneOf, Optional, Word, OneOrMore
 
 def define_replace():
     #define so that there can be multiple verisions of Replace
-    replaceKeyword = oneOf(["Replace", "REPLACE"]).suppress()
+    replaceKeyword = oneOf(["Replace", "REPLACE"]).setResultsName("replace")
 
     #Define the columns that need to be replaced
     replace_cols = choice_columns.setResultsName("replaceColumns")

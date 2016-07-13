@@ -38,29 +38,29 @@ def save_model(filename, model):
 
 
 def load_model(filename):
-	"""
-	Reads a model from a .mlsql file that has already been trained
+    """
+    Reads a model from a .mlsql file that has already been trained
     @return: the model
     """
-	text = None
-	model = None
-	with open(filename, 'r') as f:
-		model = f.readline()
-		text = f.readline()
-	
-	dictionary = json.loads(text)
-	fit = model_from_name(model)
-	fit.set_params(**dictionary)
+    text = None
+    model = None
+    with open(filename, 'r') as f:
+        model = f.readline()
+        text = f.readline()
+    
+    dictionary = json.loads(text)
+    fit = model_from_name(model)
+    fit.set_params(**dictionary)
 
-	return fit
+    return fit
 
 
 def model_from_name(name):
-	name = name.strip()
-	print(name)
-	if name == "SVC":
-		from sklearn import svm
-		return svm.SVC()
-	else:
-		print("No match in file")
-		return None
+    name = name.strip()
+    print(name)
+    if name == "SVC":
+        from sklearn import svm
+        return svm.SVC()
+    else:
+        print("No match in file")
+        return None

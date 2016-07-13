@@ -2,12 +2,13 @@
 Performs logic to handle the CLASSIFY keyword from ML-SQL language
 """
 
-def handle_classify(data, algorithm, preds, label, train = .8):
+def handle_classify(data, algorithm, preds, label, split = False, train = 1):
     """
     Performs logic to handle the classify keyword from ML-SQL language
     """
     model = _handle_algorithm(algorithm)
     if model is not None:
+
         pred_cols = map(int, preds)
         pred_cols = map(lambda x: x - 1, pred_cols)
         label_col = int(label1) - 1
@@ -15,15 +16,16 @@ def handle_classify(data, algorithm, preds, label, train = .8):
         X = data.ix[:,pred_cols]
         y = data.ix[:,label_col]
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train, test_size=(1-train))
+        #items to return
+        X_train, X_test, y_train, y_test = X, y, None, None
+
+        if(split):
+            X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=train, test_size=(1-train))
 
         #Train model
         model.fit(X_train, y_train)
 
-        #Performance on test data
-        model.score(X_test, y_test)
-
-        return model
+        return model, X_test, y_test
     else:
         return None
 

@@ -5,7 +5,7 @@ def define_read():
 	filename = Word(everything).setResultsName("filename")
 
 	#define so that there can be multiple verisions of READ
-	readKeyword = oneOf(["Read", "READ"]).suppress()
+	readKeyword = oneOf(["Read", "READ"]).setResultsName("read")
 
 	#Define Read Optionals
 	#header
