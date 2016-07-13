@@ -32,7 +32,7 @@ def handle(parsing):
 
     model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
 
-    if model and model is not None:
+    if model is not None:
         _metrics_phase(model, X_test, y_test)
 
     #regression
@@ -46,7 +46,7 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     """
     #read file
     df = handle_read(filename, sep, header)
-    if df and df is not None:
+    if df is not None:
         #Data was read in properly
         print(data.head() + "\n")
 
