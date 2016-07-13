@@ -10,8 +10,7 @@ def handle_read(userfile, separator, header):
     if _is_mlsql_file(userfile):
         model = _read_model(userfile)
     else:
-        return _read_data_file(userfile, separator, header)
-    
+        return _read_data_file(userfile, separator, header)   
 
 
 def _read_data_file(userfile, separator, header):
@@ -55,7 +54,7 @@ def _handle_separator(sep):
     """
     Translates separator into a proper value to be read by read_csv functions from pandas
     """
-    if sep is None:
+    if sep is None or sep == "":
         return ","
     else:
         return str(sep)

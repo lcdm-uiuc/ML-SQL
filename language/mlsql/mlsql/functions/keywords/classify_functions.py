@@ -2,7 +2,7 @@
 Performs logic to handle the CLASSIFY keyword from ML-SQL language
 """
 
-def handle_classify(data, algorithm, preds, label, train = .8):
+def handle_classify(data, algorithm, preds, label, split = False, train = 1):
     """
     Performs logic to handle the classify keyword from ML-SQL language
     """
