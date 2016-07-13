@@ -31,34 +31,51 @@ def handle(parsing):
 
     print(result)
 
-    #read file
-    data = handle_read(filename, sep, header)
-    if data is not None:
-        #Data was read in properly
-        print(data.head() + "\n")
-
-    #split
-
-    #classify
-    classify = handle_classify(data, algo, predictors, label)
-
-    _save_model(classify)
+    model = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
 
     #regression
     #classify = handle_regression(data, algo, predictors, label)
 
 
-def _model_phase():
+def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm):
     """
-    Model phase of ML-SQL
-    Involves 
+    Model phase of ML-SQL used to create a model
+    Uses ML-SQL keywords: READ, REPLACE, SPLIT, CLASSIFY, REGRESSION
     """
-    pass
+    #read file
+    df = handle_read(filename, sep, header)
+    if df and df is not None:
+        #Data was read in properly
+        print(data.head() + "\n")
+
+    if keywords["replace"]:
+        pass
+
+    if keywords["split"]:
+        pass
+
+    print(keywords)
+
+    if keywords["classify"] and not keywords["regression"]:
+        pass
+    elif not keywords["classify"] and keywords["regression"]:
+        pass
+    else:
+        print("Error: both classify and regression keywords present")
 
 
-def _apply_phase():
+def _apply_phase(keywords):
+    """
+    Apply phase of ML-SQL used to label new data with the trained model
+    Uses ML-SQL keywords: SPLIT, APPLY
+    """
+    #classify = handle_classify(data, algo, predictors, label)
     pass
 
 
 def _metrics_phase():
+    """
+    Metrics phase of ML-SQL used to calculate or plot results
+    Uses ML-SQL keywords: PLOT, CALCULATE, GRAPH
+    """
     pass
