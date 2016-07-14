@@ -59,12 +59,12 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     
     elif keywords["classify"] and not keywords["regression"]:
         from .keywords.classify_functions import handle_classify
-        mod, X_test, y_test = handle_classify(df, algorithm, preds, label, keywords["split"], train)
+        mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, keywords["split"], train)
         return mod, X_test, y_test
     
     elif not keywords["classify"] and keywords["regression"]:
         from .keywords.regression_functions import handle_regression
-        mod = handle_regression(df, algorithm, preds, label, keywords["split"], train)
+        mod = handle_regression(df, algorithm, predictors, label, keywords["split"], train)
         return mod, None, None
     
     else:
@@ -87,4 +87,4 @@ def _metrics_phase(model, X_test, y_test):
     Uses ML-SQL keywords: PLOT, CALCULATE, GRAPH
     """
     #Performance on test data
-    model.score(X_test, y_test)
+    print(model.score(X_test, y_test))

@@ -23,7 +23,7 @@ def define_classify():
     labelDef = column.setResultsName("label")
 
     #combine phrases with found column numbers
-    preds = predPhrase + openParen + predictorsDef + closeParen
+    preds = predPhrase + predictorsDef
     labels = labelPhrase + labelDef
 
     classify = Optional(classifyKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen)

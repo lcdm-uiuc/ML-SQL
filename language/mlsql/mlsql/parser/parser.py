@@ -13,8 +13,6 @@ def mlsqlparser():
     CLASSIFY = define_classify()
     REPLACE = define_replace()
 
-    print(CLASSIFY)
-
     #Define comment
     comment = _define_comment()
 
