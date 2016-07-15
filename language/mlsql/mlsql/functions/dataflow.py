@@ -17,6 +17,7 @@ def handle(parsing):
     algo = parsing.algorithm
     replaceCols = parsing.replaceColumns
     replaceVal = parsing.replaceValue
+    replaceIdent = parsing.replaceIdentifier
 
     #create a dictionary with all keywords
     keywords_used = keyword_check(parsing)
@@ -31,6 +32,7 @@ def handle(parsing):
     result += "algorithm: " + str(algo) + "\n"
     result += "replace columns: " + str(replaceCols) + "\n"
     result += "replace value: " + str(replaceVal) + "\n"
+    result += "replace identifier: " + str(replaceIdent) + "\n"
 
     print(result)
 
