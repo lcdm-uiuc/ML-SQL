@@ -5,4 +5,4 @@ from pyparsing import delimitedList, MatchFirst, Word
 column = Word(numbers)
 _columns = delimitedList(column, combine = True)
 _list_columns = openBracket + _columns + closeBracket
-choice_columns = MatchFirst([column,_list_columns]).setResultsName("replaceColumns")
+choice_columns = MatchFirst([column,_list_columns])

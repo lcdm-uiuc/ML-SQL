@@ -15,6 +15,8 @@ def handle(parsing):
     predictors = parsing.predictors
     label = parsing.label
     algo = parsing.algorithm
+    replaceCols = parsing.replaceColumns
+    replaceVal = parsing.replaceValue
 
     #create a dictionary with all keywords
     keywords_used = keyword_check(parsing)
@@ -27,10 +29,14 @@ def handle(parsing):
     result += "predictors: " + str(predictors) + "\n"
     result += "label: " + str(label) + "\n"
     result += "algorithm: " + str(algo) + "\n"
+    result += "replace columns: " + str(replaceCols) + "\n"
+    result += "replace value: " + str(replaceVal) + "\n"
 
     print(result)
 
-    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
+    model = None
+    if keywords_used["classify"]:
+        model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
 
     if model is not None:
         _metrics_phase(model, X_test, y_test)
@@ -87,4 +93,5 @@ def _metrics_phase(model, X_test, y_test):
     Uses ML-SQL keywords: PLOT, CALCULATE, GRAPH
     """
     #Performance on test data
-    print(model.score(X_test, y_test))
+    if X_test is not None and y_test is not None:
+        print(model.score(X_test, y_test))
