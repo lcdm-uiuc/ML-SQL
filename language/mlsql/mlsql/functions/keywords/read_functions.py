@@ -2,13 +2,15 @@
 Performs logic to handle the read keyword from ML-SQL language
 """
 
+from ..utils.modelIO import load_model
+
 def handle_read(userfile, separator, header):
     """
     Main exported function
     Performs logic to handle the read keyword from ML-SQL language
     """
     if _is_mlsql_file(userfile):
-        model = _read_model(userfile)
+        model = load_model(userfile)
     else:
         return _read_data_file(userfile, separator, header)   
 
