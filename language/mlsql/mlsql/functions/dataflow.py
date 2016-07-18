@@ -1,7 +1,6 @@
 """
 Processes input after it has been parsed. Performs the dataflow for input. 
 """
-from .keywords.read_functions import handle_read
 from .utils.modelIO import save_model
 from .utils.keywords import keyword_check
 
@@ -36,9 +35,7 @@ def handle(parsing):
 
     print(result)
 
-    model = None
-    if keywords_used["classify"]:
-        model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
+    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
 
     if model is not None:
         _metrics_phase(model, X_test, y_test)
@@ -52,12 +49,23 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     Model phase of ML-SQL used to create a model
     Uses ML-SQL keywords: READ, REPLACE, SPLIT, CLASSIFY, REGRESSION
     """
+    #load keyword
+    if keywords["load"]:
+        from .keywords.load_functions import handle_load
+        print("Loading model from: '" + filename + "'")
+        model = handle_load(filename)
+        return model
+
     #read file
-    df = handle_read(filename, sep, header)
+    df = None
+    if keywords["read"]:
+        from .keywords.read_functions import handle_read
+        df = handle_read(filename, sep, header)
     if df is not None:
         #Data was read in properly
         print(df.head())
 
+    #Replace
     if keywords["replace"]:
         pass
 

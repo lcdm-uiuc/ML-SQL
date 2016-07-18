@@ -3,13 +3,14 @@ Performs logic to handle the read keyword from ML-SQL language
 """
 
 from ..utils.modelIO import load_model
+from ..utils.filepath import is_mlsql_file
 
 def handle_read(userfile, separator, header):
     """
     Main exported function
     Performs logic to handle the read keyword from ML-SQL language
     """
-    if _is_mlsql_file(userfile):
+    if is_mlsql_file(userfile):
         model = load_model(userfile)
     else:
         return _read_data_file(userfile, separator, header)   
@@ -60,13 +61,3 @@ def _handle_separator(sep):
         return ","
     else:
         return str(sep)
-
-
-def _is_mlsql_file(filepath):
-    """
-    Checks if the filename extension ends with a .mlsql suffix as the file type
-    @return: boolean
-    """
-    dotsplit = filepath.split(".")
-    extension = dotsplit[-1]
-    return extension == "mlsql"
