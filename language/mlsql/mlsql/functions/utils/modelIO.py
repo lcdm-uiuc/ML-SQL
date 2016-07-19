@@ -44,7 +44,7 @@ def load_model(filename):
     Reads a model from a .mlsql file that has already been trained
     @return: the model
     """
-    if !file_exists(filename):
+    if not file_exists(filename):
         return None
 
 

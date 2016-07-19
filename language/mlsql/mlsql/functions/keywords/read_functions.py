@@ -20,7 +20,7 @@ def _read_data_file(userfile, separator, header):
     """
     Reads a CSV-like file from memory with options for header and separator
     """
-    if !file_exists:
+    if not file_exists:
         return None
 
     from pandas import read_csv
@@ -48,12 +48,18 @@ def _handle_header(header):
     """
     if header is None or header == "":
         return None
-    elif header.lower() == "false":
+    elif header == "False":
         return None
-    elif header.lower() == "true":
-        return True
+    elif header == "True":
+        return 0
     else:
-        return True
+        try:
+            #check if header can be parsed to an int
+            result = int(header)
+            return result
+        except ValueError as v:
+            return None
+        return 0
 
 
 def _handle_separator(sep):
