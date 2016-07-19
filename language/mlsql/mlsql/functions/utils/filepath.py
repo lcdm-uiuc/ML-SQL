@@ -23,3 +23,14 @@ def is_mlsql_file(filepath):
     dotsplit = filepath.split(".")
     extension = dotsplit[-1]
     return extension == "mlsql"
+
+def file_exists(filename):
+    """
+    Returns whether a file exists by the path defined above
+    """
+    from os.path import isfile
+    if isfile(filename):
+        return True
+    else:
+        print("File '" + filename + "' does not exist")
+        return False

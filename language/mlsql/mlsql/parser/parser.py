@@ -24,7 +24,7 @@ def mlsqlparser():
     read_split_classify_regression = READ + SPLIT + CLASSIFY + REGRESSION
     read_replace_split_classify_regression = READ + REPLACE + SPLIT + CLASSIFY + REGRESSION
 
-    load_read_replace_split_classify_regression = MatchFirst([LOAD, read_replace_split_classify_regression])
+    load_read_replace_split_classify_regression = MatchFirst([read_replace_split_classify_regression, LOAD])
 
     return load_read_replace_split_classify_regression.ignore(comment)
 
