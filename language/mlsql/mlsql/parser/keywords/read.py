@@ -1,5 +1,5 @@
 from .grammer import *
-from pyparsing import Word, Keyword, Optional, Or, Literal
+from pyparsing import Word, Keyword, Optional, MatchFirst, Literal
 
 def define_read():
     filename = Word(everything).setResultsName("filename")
@@ -10,10 +10,11 @@ def define_read():
     #Define Read Optionals
     #header
     headerLiteral = (Literal("header") + Literal("=")).suppress()
-    header = Optional(headerLiteral + Or(bools).setResultsName("header"), default = "False" )
+    header_choices = MatchFirst([Word(numbers), bool_true, bool_false]).setResultsName("header")
+    header = Optional(headerLiteral + header_choices)
 
     #separator
-    separatorLiteral = (Or([Literal("sep"), Literal("separator")]) + Literal("=")).suppress()
+    separatorLiteral = (MatchFirst([Literal("sep"), Literal("separator")]) + Literal("=")).suppress()
     definesep = Quote + Word(everythingWOQuotes + whitespace).setResultsName("sep") + Quote
     separator = Optional(separatorLiteral + definesep, default = ",")
 

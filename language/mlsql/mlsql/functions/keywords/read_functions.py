@@ -3,7 +3,7 @@ Performs logic to handle the read keyword from ML-SQL language
 """
 
 from ..utils.modelIO import load_model
-from ..utils.filepath import is_mlsql_file
+from ..utils.filepath import is_mlsql_file, file_exists
 
 def handle_read(userfile, separator, header):
     """
@@ -20,6 +20,9 @@ def _read_data_file(userfile, separator, header):
     """
     Reads a CSV-like file from memory with options for header and separator
     """
+    if not file_exists:
+        return None
+
     from pandas import read_csv
 
     #create dataframe for read in file
@@ -33,7 +36,7 @@ def _read_data_file(userfile, separator, header):
     try:
         df = read_csv(userfile, sep = separ, header = head)
     except OSError as e:
-        print("Error importing file" + userfile)
+        print("Error importing file: '" + userfile + "'")
         print(e)
         return None
     return (df)
@@ -45,12 +48,18 @@ def _handle_header(header):
     """
     if header is None or header == "":
         return None
-    elif header.lower() == "false":
+    elif header == "False":
         return None
-    elif header.lower() == "true":
-        return True
+    elif header == "True":
+        return 0
     else:
-        return True
+        try:
+            #check if header can be parsed to an int
+            result = int(header)
+            return result
+        except ValueError as v:
+            return None
+        return 0
 
 
 def _handle_separator(sep):

@@ -32,7 +32,6 @@ def handle(parsing):
     result += "replace columns: " + str(replaceCols) + "\n"
     result += "replace value: " + str(replaceVal) + "\n"
     result += "replace identifier: " + str(replaceIdent) + "\n"
-
     print(result)
 
     model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
@@ -52,9 +51,8 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     #load keyword
     if keywords["load"]:
         from .keywords.load_functions import handle_load
-        print("Loading model from: '" + filename + "'")
         model = handle_load(filename)
-        return model
+        return model, None, None
 
     #read file
     df = None
@@ -105,3 +103,5 @@ def _metrics_phase(model, X_test, y_test):
     #Performance on test data
     if X_test is not None and y_test is not None:
         print(model.score(X_test, y_test))
+    else:
+        return None
