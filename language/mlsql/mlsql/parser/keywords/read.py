@@ -14,7 +14,7 @@ def define_read():
     header = Optional(headerLiteral + header_choices)
 
     #separator
-    separatorLiteral = (MatchFirst([Literal("sep"), Literal("separator")]) + Literal("=")).suppress()
+    separatorLiteral = (Literal("separator") + Literal("=")).suppress()
     definesep = Quote + Word(everythingWOQuotes + whitespace).setResultsName("sep") + Quote
     separator = Optional(separatorLiteral + definesep, default = ",")
 
