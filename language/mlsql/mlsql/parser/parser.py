@@ -30,6 +30,7 @@ def mlsqlparser():
 
 
 
+
 def _define_comment(comment = "--"):
     oracleSqlComment = comment + restOfLine
     return oracleSqlComment
