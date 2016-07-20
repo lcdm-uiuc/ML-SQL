@@ -19,7 +19,7 @@ def define_read():
     separator = Optional(separatorLiteral + definesep, default = ",")
 
     #Compose Read Optionals
-    readOptions = Optional(openParen + separator + header + closeParen)
+    readOptions = Optional(openParen + separator + ocomma +  header + closeParen)
 
     read = readKeyword + filename + readOptions
     
