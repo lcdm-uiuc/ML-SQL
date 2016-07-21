@@ -1,9 +1,8 @@
-from ..utils import string_helpers
-from sklearn.cross_validation import train_test_split
-
 """
 Performs logic to handle the CLASSIFY keyword from ML-SQL language
 """
+from ..utils import string_helpers
+from sklearn.cross_validation import train_test_split
 
 def handle_classify(data, algorithm, preds, label, split = False, train = 1):
     """
