@@ -4,6 +4,7 @@ from .keywords.regression import define_regression
 from .keywords.classify import define_classify
 from .keywords.replace import define_replace
 from .keywords.load import define_load
+from .keywords.cluster import define_cluster
 from pyparsing import restOfLine, MatchFirst
 
 def mlsqlparser():
@@ -13,6 +14,7 @@ def mlsqlparser():
     SPLIT = define_split()
     REGRESSION = define_regression()
     CLASSIFY = define_classify()
+    CLUSTER = define_cluster()
     REPLACE = define_replace()
 
     #Define comment
@@ -23,11 +25,11 @@ def mlsqlparser():
     read_split_classify = READ + SPLIT + CLASSIFY
     read_split_classify_regression = READ + SPLIT + CLASSIFY + REGRESSION
     read_replace_split_classify_regression = READ + REPLACE + SPLIT + CLASSIFY + REGRESSION
+    read_replace_split_classify_regression_cluster = READ + REPLACE + SPLIT + CLASSIFY + REGRESSION + CLUSTER
 
-    load_read_replace_split_classify_regression = MatchFirst([read_replace_split_classify_regression, LOAD])
+    load_read_replace_split_classify_regression_cluster = MatchFirst([read_replace_split_classify_regression_cluster, LOAD])
 
-    return load_read_replace_split_classify_regression.ignore(comment)
-
+    return load_read_replace_split_classify_regression_cluster.ignore(comment)
 
 
 

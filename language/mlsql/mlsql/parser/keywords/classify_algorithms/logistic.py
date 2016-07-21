@@ -1,7 +1,8 @@
+"""
+Defines the parsing for the logistic regression algorithm for intended use in classification
+"""
 from pyparsing import oneOf, Literal, Optional, Word
 from ..grammer import numbers, openParen, closeParen
-
-logPhrase = oneOf(["logistic", "Logistic", "LOGISTIC"])
 
 def define_logistic():
     logPhrase = oneOf(["logistic", "Logistic", "LOGISTIC"])
