@@ -1,4 +1,5 @@
 from .grammer import *
+from ._constants import decimal
 from pyparsing import oneOf, Literal, Word, Optional, Combine
 
 def define_split():
@@ -11,9 +12,9 @@ def define_split():
 	valPhrase = (Literal("validation") + Literal("=")).suppress()
 
 	#train, test, validation split values
-	trainS = Combine(Literal(".") + Word(numbers)).setResultsName("train_split")
-	testS = Combine(Literal(".") + Word(numbers)).setResultsName("test_split")
-	valS = Combine(Literal(".") + Word(numbers)).setResultsName("validation_split")
+	trainS = decimal.setResultsName("train_split")
+	testS = decimal.setResultsName("test_split")
+	valS = Optional(decimal, default = 0).setResultsName("validation_split")
 
 	#Compose phrases and values together 
 	training = trainPhrase + trainS
