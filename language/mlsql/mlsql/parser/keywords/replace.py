@@ -9,14 +9,17 @@ def define_replace():
     #Define the columns that need to be replaced
     replace_cols = choice_columns.setResultsName("replaceColumns")
 
+    #Define value that needs replacing
+    replace_missing = Quote + Word(everythingWOQuotes).setResultsName("replaceIdentifier") + Quote
+
     #defines possible values or optional replacement words 
     value = Quote + Word(everythingWOQuotes) + Quote
     options = _replace_options()
     replacements = MatchFirst(options + [value]).setResultsName("replaceValue")
 
     #single group for column replace
-    single_replacement = openParen + replace_cols + ocomma + replacements + closeParen
-    group_replacements = delimitedList(single_replacement, delim = ",")
+    single_replacement = openParen + replace_cols + ocomma + replace_missing + ocomma + replacements + closeParen
+    group_replacements = delimitedList(single_replacement)
 
     #putting it all together to create replacement
     replace = Optional(replaceKeyword + group_replacements)
@@ -28,18 +31,19 @@ def define_replace():
 def _replace_options():
     """
     Defines different word replacement strategies for missing values
-    - mean, max, min, median
+    - mean, max, min, median, mode
     - drop column
     - drop row
     """
     mean = CaselessLiteral("mean")
     median = CaselessLiteral("median")
+    mode = CaselessLiteral("mode")
     maximum = CaselessLiteral("maximum")
     minimum = CaselessLiteral("minimum")
     dropC = CaselessLiteral("drop column")
     dropR = CaselessLiteral("drop row")
 
     #Combine all possible options
-    options = [mean, median, maximum, minimum, dropC,dropR]
+    options = [mean, median, mode, maximum, minimum, dropC,dropR]
 
     return options

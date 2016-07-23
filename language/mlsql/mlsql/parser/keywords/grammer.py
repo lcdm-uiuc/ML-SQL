@@ -4,7 +4,7 @@ Defines lists of grammer constants to be used for language construction
 
 #Libraries
 import string
-from pyparsing import Literal, Optional
+from pyparsing import Literal, CaselessLiteral, Optional
 
 #Define valid symbols and letters
 letters = string.ascii_letters
@@ -17,7 +17,9 @@ everything = letters + punctuation + numbers
 everythingWOQuotes = everything.replace("\"", "").replace("'", "")
 
 #Booleans
-bools = Literal("True") + Literal("False")
+bool_true = CaselessLiteral("True")
+bool_false = CaselessLiteral("False")
+bools = bool_true + bool_false
 
 #Parenthesis and Quotes
 openParen = Literal("(").suppress()

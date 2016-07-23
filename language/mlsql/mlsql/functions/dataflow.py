@@ -1,7 +1,6 @@
 """
 Processes input after it has been parsed. Performs the dataflow for input. 
 """
-from .keywords.read_functions import handle_read
 from .utils.modelIO import save_model
 from .utils.keywords import keyword_check
 
@@ -15,6 +14,9 @@ def handle(parsing):
     predictors = parsing.predictors
     label = parsing.label
     algo = parsing.algorithm
+    replaceCols = parsing.replaceColumns
+    replaceVal = parsing.replaceValue
+    replaceIdent = parsing.replaceIdentifier
 
     #create a dictionary with all keywords
     keywords_used = keyword_check(parsing)
@@ -27,7 +29,9 @@ def handle(parsing):
     result += "predictors: " + str(predictors) + "\n"
     result += "label: " + str(label) + "\n"
     result += "algorithm: " + str(algo) + "\n"
-
+    result += "replace columns: " + str(replaceCols) + "\n"
+    result += "replace value: " + str(replaceVal) + "\n"
+    result += "replace identifier: " + str(replaceIdent) + "\n"
     print(result)
 
     model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
@@ -44,12 +48,22 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     Model phase of ML-SQL used to create a model
     Uses ML-SQL keywords: READ, REPLACE, SPLIT, CLASSIFY, REGRESSION
     """
+    #load keyword
+    if keywords["load"]:
+        from .keywords.load_functions import handle_load
+        model = handle_load(filename)
+        return model, None, None
+
     #read file
-    df = handle_read(filename, sep, header)
+    df = None
+    if keywords["read"]:
+        from .keywords.read_functions import handle_read
+        df = handle_read(filename, sep, header)
     if df is not None:
         #Data was read in properly
         print(df.head())
 
+    #Replace
     if keywords["replace"]:
         pass
 
@@ -87,4 +101,7 @@ def _metrics_phase(model, X_test, y_test):
     Uses ML-SQL keywords: PLOT, CALCULATE, GRAPH
     """
     #Performance on test data
-    print(model.score(X_test, y_test))
+    if X_test is not None and y_test is not None:
+        print(model.score(X_test, y_test))
+    else:
+        return None

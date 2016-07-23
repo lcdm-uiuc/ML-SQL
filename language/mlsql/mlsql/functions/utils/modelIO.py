@@ -2,7 +2,7 @@
 Handles persisting models by saving and loading them into files
 """
 
-from .filepath import get_model_type, get_relative_filename
+from .filepath import get_model_type, get_relative_filename, file_exists
 import json
 
 # Constant defining how a file is split into separate components
@@ -14,9 +14,11 @@ def save_model(filename, model):
     Save a model that has already been trained into a .mlsql file
     The file is saved to the current working directory with the name of the file
     """
+
     relative_file = get_relative_filename(filename)
 
-    #ensure file does not already exist
+    #ensure file does not already exist, if it does, program will add _ INTEGER to the 
+    #end of the file to create a unique file
     from os.path import isfile
     counter = 2
     if isfile(relative_file + EXTENSION):
@@ -42,6 +44,10 @@ def load_model(filename):
     Reads a model from a .mlsql file that has already been trained
     @return: the model
     """
+    if not file_exists(filename):
+        return None
+
+
     text = None
     model = None
     with open(filename, 'r') as f:

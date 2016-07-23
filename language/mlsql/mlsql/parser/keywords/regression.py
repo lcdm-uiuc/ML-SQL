@@ -25,7 +25,7 @@ def define_regression():
     labelDef = column.setResultsName("label")
 
     #combine phrases with found column numbers
-    preds = predPhrase + openParen + predictorsDef + closeParen
+    preds = predPhrase + predictorsDef
     labels = labelPhrase + labelDef
 
     regression = Optional(regressionKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen)
