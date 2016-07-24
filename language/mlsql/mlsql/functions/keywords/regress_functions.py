@@ -4,7 +4,7 @@ Performs logic to handle the REGRESSION keyword from ML-SQL language
 from ..utils import string_helpers
 from sklearn.cross_validation import train_test_split
 
-def handle_regression(data, algorithm, preds, label, split = False, train = 1):
+def handle_regress(data, algorithm, preds, label, split = False, train = 1):
     """
     Performs logic to handle the regression keyword from ML-SQL language
     """

@@ -68,17 +68,17 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
         pass
 
     #Classification and Regression
-    if not keywords["classify"] and not keywords["regression"]:
+    if not keywords["classify"] and not keywords["regress"]:
         return None, None, None
     
-    elif keywords["classify"] and not keywords["regression"]:
+    elif keywords["classify"] and not keywords["regress"]:
         from .keywords.classify_functions import handle_classify
         mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, keywords["split"], train)
         return mod, X_test, y_test
     
-    elif not keywords["classify"] and keywords["regression"]:
-        from .keywords.regression_functions import handle_regression
-        mod = handle_regression(df, algorithm, predictors, label, keywords["split"], train)
+    elif not keywords["classify"] and keywords["regress"]:
+        from .keywords.regress_functions import handle_regress
+        mod = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
         return mod, None, None
     
     else:
