@@ -3,6 +3,7 @@ Handles persisting models by saving and loading them into files
 """
 
 from .filepath import get_model_type, get_relative_filename, file_exists
+from .algorithms import check_all
 import json
 
 # Constant defining how a file is split into separate components
@@ -55,18 +56,7 @@ def load_model(filename):
         text = f.readline()
     
     dictionary = json.loads(text)
-    fit = model_from_name(model)
+    fit = check_all(model)
     fit.set_params(**dictionary)
 
     return fit
-
-
-def model_from_name(name):
-    name = name.strip()
-    print(name)
-    if name == "SVC":
-        from sklearn import svm
-        return svm.SVC()
-    else:
-        print("No match in file")
-        return None

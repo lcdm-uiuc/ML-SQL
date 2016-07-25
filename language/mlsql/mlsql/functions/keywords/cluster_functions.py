@@ -1,15 +1,15 @@
 """
-Performs logic to handle the CLASSIFY keyword from ML-SQL language
+Performs logic to handle the CLUSTER keyword from ML-SQL language
 """
 from ..utils import string_helpers
 from sklearn.cross_validation import train_test_split
-from ..utils.algorithms import handle_classify_algorithm
+from ..utils.algorithms import handle_cluster_algorithm
 
-def handle_classify(data, algorithm, preds, label, split = False, train = 1):
+def handle_cluster(data, algorithm, preds, label = None, split = False, train = 1):
     """
-    Performs logic to handle the classify keyword from ML-SQL language
+    Performs logic to handle the CLUSTER keyword from ML-SQL language
     """
-    model = handle_classify_algorithm(algorithm)
+    model = handle_cluster_algorithm(algorithm)
     if model is not None:
 
         #convert list of columns to integers and covert columns to start at 0
@@ -20,7 +20,9 @@ def handle_classify(data, algorithm, preds, label, split = False, train = 1):
         label_col = string_helpers.convert_int(label) - 1
 
         X = data.ix[:,pred_cols]
-        y = data.ix[:,label_col]
+        y = None
+        if label is not None:
+            y = data.ix[:,label_col]
 
         #items to return
         X_train, X_test, y_train, y_test = X, y, None, None
