@@ -1,14 +1,15 @@
 """
-Performs logic to handle the REGRESSION keyword from ML-SQL language
+Performs logic to handle the REGRESS keyword from ML-SQL language
 """
 from ..utils import string_helpers
 from sklearn.cross_validation import train_test_split
+from ..utils.algorithms import handle_regression_algorithm
 
-def handle_regression(data, algorithm, preds, label, split = False, train = 1):
+def handle_regress(data, algorithm, preds, label, split = False, train = 1):
     """
-    Performs logic to handle the regression keyword from ML-SQL language
+    Performs logic to handle the CLUSTER keyword from ML-SQL language
     """
-    model = _handle_algorithm(algorithm)
+    model = handle_regression_algorithm(algorithm)
     if model is not None:
 
         #convert list of columns to integers and covert columns to start at 0
@@ -33,22 +34,4 @@ def handle_regression(data, algorithm, preds, label, split = False, train = 1):
 
         return model, X_test, y_test
     else:
-        return None
-
-
-
-def _handle_algorithm(algorithm):
-    algo_name = str(algorithm)
-    if algo_name.lower() == "simple":
-        from sklearn import linear_model
-        return linear_model.LinearRegression(fit_intercept = True)
-    elif algo_name.lower() == "lasso":
-        from sklearn import linear_model
-        return linear_model.Lasso(alpha=0.1)
-    elif algo_name.lower() == "ridge":
-        #random forest
-        from sklearn import linear_model
-        return linear_model.Ridge(alpha=0.1)
-    else:
-        print("Error: algorithm '" + algo_name + "' is not available")
         return None

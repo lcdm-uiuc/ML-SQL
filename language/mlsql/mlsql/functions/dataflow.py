@@ -68,21 +68,26 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
         pass
 
     #Classification and Regression
-    if not keywords["classify"] and not keywords["regression"]:
+    if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
         return None, None, None
     
-    elif keywords["classify"] and not keywords["regression"]:
+    elif keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
         from .keywords.classify_functions import handle_classify
         mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, keywords["split"], train)
         return mod, X_test, y_test
     
-    elif not keywords["classify"] and keywords["regression"]:
-        from .keywords.regression_functions import handle_regression
-        mod = handle_regression(df, algorithm, predictors, label, keywords["split"], train)
+    elif not keywords["classify"] and keywords["regress"] and not keywords["cluster"]:
+        from .keywords.regress_functions import handle_regress
+        mod = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
         return mod, None, None
     
+    elif not keywords["classify"] and not keywords["regress"] and keywords["cluster"]:
+        from .keywords.cluster_functions import handle_cluster
+        mod = handle_cluster(df, algorithm, predictors, keywords["split"], train)
+        return mod, None, None
+
     else:
-        print("Error: both classify and regression keywords present")
+        print("Error: two or more of the keywords cluster, classify, and regress are in the query")
         return None, None, None
 
 

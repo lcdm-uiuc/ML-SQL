@@ -1,9 +1,9 @@
 from .grammer import *
 from ._constants import choice_columns, column
-from pyparsing import Literal, oneOf, Optional, Word, MatchFirst
+from pyparsing import Literal, Keyword, Optional, Word, MatchFirst
 from .regression_algorithms import simple, lasso, ridge
 
-def define_regression():
+def define_regress():
     #Algorithm keyword definitions
     algoPhrase = (Literal ("algorithm") + Literal("=")).suppress()
     
@@ -14,7 +14,7 @@ def define_regression():
     algo = algoPhrase + MatchFirst([simpled, lassod, ridged]).setResultsName("algorithm")
 
     #define so that there can be multiple verisions of Regression
-    regressionKeyword = oneOf(["Regression", "REGRESSION"]).setResultsName("regression")
+    regressKeyword = Keyword("regress", caseless = True).setResultsName("regress")
 
     #Phrases to organize predictor and label column numbers
     predPhrase = (Literal("predictors") + Literal("=")).suppress()
@@ -28,6 +28,6 @@ def define_regression():
     preds = predPhrase + predictorsDef
     labels = labelPhrase + labelDef
 
-    regression = Optional(regressionKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen)
+    regress = Optional(regressKeyword + openParen + preds + ocomma + labels + ocomma + algo + closeParen)
 
-    return regression
+    return regress

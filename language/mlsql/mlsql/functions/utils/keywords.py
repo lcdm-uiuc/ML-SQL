@@ -1,4 +1,4 @@
-keywords = ["load", "read", "split", "replace", "classify", "regression"]
+keywords = ["load", "read", "split", "replace", "classify", "regress", "cluster"]
 
 def keyword_check(parsing):
     keys = {}
