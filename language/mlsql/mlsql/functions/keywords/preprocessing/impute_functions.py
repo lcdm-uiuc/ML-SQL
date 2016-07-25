@@ -23,9 +23,11 @@ class ImputeColumns(BaseEstimator, TransformerMixin):
   # Constructor: Makes an instance of the custom imputer
   # Columns: Columns to impute, if None, then impute all columns
   # impute_strategy: Can be "mean", "median" or "most frequent"
-  def __init__(self,columns=None, impute_strategy='most_frequent', missing_vals='NaN'):
+  def __init__(self,columns=None, impute_strategy='mode', missing_vals='NaN'):
       self.columns = columns
       self.impute_strategy = impute_strategy
+      if self.impute_strategy == 'mode':
+        self.impute_strategy = 'most_frequent'
       self.missing_vals = missing_vals
       self.imputer = None
   def fit(self, data, target=None):
@@ -57,21 +59,37 @@ Parameters:
       'rand_forest_reg'
 Returns: Imputed dataframe
 """
-def impute_missing(data, columns, impute_strategy='most_frequent', missing_values='NaN'):
+def impute_missing(data, columns, impute_strategy='mode', missing_values='NaN'):
   dummy_val = 'U0'
   # Use the Imputer class to impute if the strategy is most_frequent, median or mean 
-  if impute_strategy == 'most_frequent' or impute_strategy == 'median' or impute_strategy == 'mean':
+  if impute_strategy == 'mode' or impute_strategy == 'median' or impute_strategy == 'mean':
     imputer = ImputeColumns(columns=columns, impute_strategy=impute_strategy, missing_vals=missing_values)
     return imputer.fit_transform(data)
   
   # Use custom functions
   else:
-    if impute_strategy == 'remove':
-      cols_to_impute= list()
-      for col in data.columns:
-        if missing_values in data[col]:
-          cols_to_impute.append(col)
-      return remove_columns(data, cols_to_remove)
+    if impute_strategy == 'drop column':
+      if columns == None:
+        cols_to_impute= list()
+        for col in data.columns:
+          if missing_values in data[col]:
+            cols_to_impute.append(col)
+      else:
+        cols_to_impute = columns
+      return _remove_columns(data, cols_to_remove)
+
+    if impute_strategy == 'maximum':
+      if columns == None:
+        cols_to_impute= list()
+        for col in data.columns:
+          if missing_values in data[col]:
+            cols_to_impute.append(col)
+      else:
+        cols_to_impute = columns
+
+      return 0
+    if impute_strategy == 'minimum':
+      return 0
     if impute_strategy == 'dummy':
       return data.replace(missing_values, dummy_val) 
 
@@ -90,13 +108,11 @@ Parameters:
 Returns:
   Dataframe with deleted columns 
 """
-def remove_columns(data, delete_list):
+def _remove_columns(data, delete_list):
   for col in delete_list:
       del data[col]
   return data
 
 
-
-
-
-
+def _find_cols_with_missing_vals(df, missing_vals):
+  return list()
