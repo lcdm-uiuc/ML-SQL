@@ -32,5 +32,3 @@ def do_SVM_default(features, labels, p=0.8):
   lin_svm.fit(X_train, y_train)
   pred = lin_svm.predict(X_test)
   return accuracy_score(preds, y_test)
-
-
