@@ -61,43 +61,46 @@ Returns: Imputed dataframe
 """
 def impute_missing(data, columns, impute_strategy='mode', missing_values='NaN'):
   dummy_val = 'U0'
-  # Use the Imputer class to impute if the strategy is most_frequent, median or mean 
-  if impute_strategy == 'mode' or impute_strategy == 'median' or impute_strategy == 'mean':
-    imputer = ImputeColumns(columns=columns, impute_strategy=impute_strategy, missing_vals=missing_values)
-    return imputer.fit_transform(data)
-  
-  # Use custom functions
+  cols_to_impute = list()
+  if columns == None:
+    cols_to_impute = _find_cols_with_missing_vals(data)
   else:
-    if impute_strategy == 'drop column':
-      if columns == None:
-        cols_to_impute= list()
-        for col in data.columns:
-          if missing_values in data[col]:
-            cols_to_impute.append(col)
-      else:
-        cols_to_impute = columns
-      return _remove_columns(data, cols_to_remove)
-
-    if impute_strategy == 'maximum':
-      if columns == None:
-        cols_to_impute= list()
-        for col in data.columns:
-          if missing_values in data[col]:
-            cols_to_impute.append(col)
-      else:
-        cols_to_impute = columns
-
-      return 0
-    if impute_strategy == 'minimum':
-      return 0
-    if impute_strategy == 'dummy':
-      return data.replace(missing_values, dummy_val) 
-
-    # Do some more research on this before implementing
-    if impute_strategy == 'rand_forest_reg':
-      print("RANDOM FOREST REGRESSOR NOT IMPLEMENTED NO IMPUTATION HAPPENED")
-      return None
-
+    cols_to_impute = columns
+  if impute_strategy == 'mode':
+    for col in cols_to_impute:
+      modeVal = data[col].mode()
+      data[col].fillna(modeVal)
+    return data
+  elif impute_strategy == 'mean':
+    for col in cols_to_impute:
+      meanVal = data[col].mean()
+      data[col].fillna(meanVal)
+    return data
+  elif impute_strategy == 'median':
+    for col in cols_to_impute:
+      medianVal = data[col].median()
+      data[col].fillna(medianVal)
+    return data
+  elif impute_strategy == 'drop column':
+    return _remove_columns(data, cols_to_impute)
+  elif impute_strategy == 'maximum':
+    for col in cols_to_impute:
+      maxVal = max(data[col])
+      data[col].fillna(maxVal)
+    return data
+  elif impute_strategy == 'minimum':
+    for col in cols_to_impute:
+      minVal = min(data[col])
+      data[col].fillna(minVal)
+    return data
+  elif impute_strategy == 'dummy':
+    return data.replace(missing_values, dummy_val) 
+  # Do some more research on this before implementing
+  elif impute_strategy == 'rand_forest_reg':
+    print("RANDOM FOREST REGRESSOR NOT IMPLEMENTED NO IMPUTATION HAPPENED")
+    return None
+  else:
+    print ("REPLACE COMMAND NOT RECOGNIZED")
     return None
 
 """
@@ -113,6 +116,3 @@ def _remove_columns(data, delete_list):
       del data[col]
   return data
 
-
-def _find_cols_with_missing_vals(df, missing_vals):
-  return list()
