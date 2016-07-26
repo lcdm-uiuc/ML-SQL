@@ -47,6 +47,7 @@ repl()
 ```
 
 ___
+___
 
 ## ML-SQL Steps
 
@@ -62,46 +63,101 @@ The MLSQL language is broken down into 3 major steps (keywords specified below):
 The Apply and Metrics pahses build upon the Model phase to supply the user with useful results.
 
 ___
-___
 
 ## Language
+
+All strings (including all filepaths) must be placed in quotations ("..."). All integers must not be placed in quotes (including column numbers).
+
+Columns can either be specified as a single column (an integer) or as a list of columns which is a comma separated list of integers enclosed within brackets (ex. [1,2,3,...]).
+
+___
 
 ### READ
 
 (Model phase)
+
+#### Description
+
+Used to read in a raw data file from memory in order to create a machine learning model. The file must be in a csv like format.
+
+#### Usage
+```
+READ "*file*" (header = ..., separator = "...")
+```
+*file* - specifies a memory location on the user's machine that can be read to create a machine learning model. The head of the data is displayed if the file is successfully read in. The path must be a relative path from the user's current directory. 
+
+*header* - user specified parameter which indicates if there is a header present in the data. Possible options for this parameter are "True" (indicating there is a header on the first row), "False" (indicating there is no header), or any *int* (indicating that there is a header specification on a specific row other than the first row). By default this value will be False if it is not specified by the user. 
+
+*separtor* - user specified parameter which indicates if there is a different type of separator to properly read in the file. By default this value is "," if not specified by the user.
 ___
 
 ### REPLACE
 (Model phase)
+
+#### Description
+
+#### Options
 ___
 
 ### CLASSIFY
 (Model phase)
+
+#### Description
+
+#### Options
 ___
 
 ### REGRESS
 (Model phase)
+
+#### Description
+
+#### Options
 ___
 
 ### CLUSTER
 (Model phase)
+
+#### Description
+
+#### Options
 ___
 
 ### LOAD
 (Model phase)
+
+#### Description
+
+#### Options
 ___
 
 ### SPLIT
 (Apply phase)
+
+#### Description
+
+#### Options
 ___
 
 ### APPLY
 (Apply phase)
+
+#### Description
+
+#### Options
 ___
 
 ### CALCULATE
 (Metrics Phase)
+
+#### Description
+
+#### Options
 ___
 
 ### SAVE
 (Model phase)
+
+#### Description
+
+#### Options
