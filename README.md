@@ -68,7 +68,7 @@ ___
 
 All strings (including all filepaths) must be placed in quotations ("..."). All integers must not be placed in quotes (including column numbers).
 
-Commas are generally optionally in this language and for the most can be omitted if the user chooses.
+Commas are generally optionally in this language and for the most part can be omitted if the user chooses.
 
 All columns are addressed by their column number (starting at 1) instead of by their names. Columns can either be specified as a single column (ex. an integer) or as a list of columns which is a comma separated list of integers enclosed within brackets (ex. [1,2,3,...]).
 
@@ -104,7 +104,7 @@ ___
 ### CLASSIFY
 (Model phase)
 
-Used to run a classification machine learning task on a set of data that has already been read in using the READ keyword. The user must specify which column(s) they want to use as predictors and which column they want as the label (only a single column). The user must also specify an algorithm that they want to use and optionally their hyperparamters. The following classification algorithms have been implemented and are available for use: SVM, Logistic Regression, Random Forest, and K-Nearest Neighbors (KNN). This keyword cannot be used with the CLUSTER and REGRESS keywords.
+Used to run a classification machine learning task on a set of data that has already been read in using the READ keyword. The user must specify which column(s) they want to use as predictors and which column they want as the label (only a single column). The user must also specify an algorithm that they want to use and optionally their hyperparamters. The following classification algorithms have been implemented and are available for use: SVM, Naive Bayes, Logistic Regression, Random Forest, and K-Nearest Neighbors (KNN). This keyword cannot be used with the CLUSTER and REGRESS keywords.
 
 #### Usage
 ```
@@ -145,7 +145,8 @@ REGRESS (predictors = ..., label = ..., algorithm = ... (*options*))
 1. Simple - **Simple Linear Regression**
 1. Lasso (lambda = ...) - **Lasso Regression**  where *lambda* is an optional decimal parameter specifying reguarlization (1 as default).
 1. Ridge (lambda = ...) - **Ridge Regression**  where *lambda* is an optional decimal parameter specifying reguarlization (1 as default).
-1. Elastic Net (alpha = ..., lambda = ...) - **Elastic Net Regression** where *alpha* is a required decimal parameter specifying the the percentage allocated towards the lasso (must be between 0 and 1). *lambda* is an optional decimal parameter specifying reguarlization (1 as default).
+1. Elastic (alpha = ..., lambda = ...) - **Elastic Net Regression** where *alpha* is a required decimal parameter specifying the the percentage allocated towards the lasso (must be between 0 and 1). *lambda* is an optional decimal parameter specifying reguarlization (1 as default).
+
 ___
 
 ### CLUSTER
@@ -166,6 +167,7 @@ CLUSTER (predictors = ..., label = ..., algorithm = ... (*options*))
 #### Algorithms
 
 1. KMeans (clusters = ...) - **K-Nearest Neighbors** where *clusters* is an optional integer parameter specifying the number of clusters to use (will default to 3).
+
 ___
 
 ### LOAD

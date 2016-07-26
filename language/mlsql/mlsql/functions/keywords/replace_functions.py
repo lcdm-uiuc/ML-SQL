@@ -8,7 +8,7 @@ Parameters:
         index 1: missing value
         index 2: imputation strategy
 """
-import .preprocessing.impute_functions 
+from .preprocessing.impute_functions import impute_missing
 def handle_replace(dataframe, list_replaces):
     ret = dataframe
     for item in list_replaces:
