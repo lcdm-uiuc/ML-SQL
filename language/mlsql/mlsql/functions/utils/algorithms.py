@@ -19,7 +19,7 @@ def handle_classify_algorithm(algorithm):
         return None
 
 
-def handle_regression_algorithm(algorithm):
+def handle_regress_algorithm(algorithm):
     algo_name = str(algorithm).lower().strip()
     if algo_name == "simple":
         from sklearn import linear_model
@@ -40,7 +40,7 @@ def handle_cluster_algorithm(algorithm):
     algo_name = str(algorithm).lower().strip()
     if algo_name == "kmeans":
         from sklearn.cluster import KMeans
-        return linear_model.KMeans()
+        return KMeans()
     else:
         print("Error: cluster algorithm '" + algo_name + "' is not available")
         return None

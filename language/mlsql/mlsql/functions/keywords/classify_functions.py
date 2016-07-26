@@ -23,7 +23,7 @@ def handle_classify(data, algorithm, preds, label, split = False, train = 1):
         y = data.ix[:,label_col]
 
         #items to return
-        X_train, X_test, y_train, y_test = X, y, None, None
+        X_train, X_test, y_train, y_test = X, None, y, None
 
         if(split):
             train = float(train)

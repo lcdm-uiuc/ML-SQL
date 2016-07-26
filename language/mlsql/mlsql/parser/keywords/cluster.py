@@ -14,7 +14,7 @@ def define_cluster():
     algo = algoPhrase + MatchFirst([kmeansd]).setResultsName("algorithm")
 
     #define so that there can be multiple verisions of Classify
-    clusterKeyword = Keyword("cluster", caseless=True).setResultsName("classify")
+    clusterKeyword = Keyword("cluster", caseless=True).setResultsName("cluster")
 
     #define predictor word to specify column numbers
     predPhrase = (Literal("predictors") + Literal("=")).suppress()

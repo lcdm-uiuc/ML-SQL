@@ -14,12 +14,12 @@ def define_split():
 	#train, test, validation split values
 	trainS = decimal.setResultsName("train_split")
 	testS = decimal.setResultsName("test_split")
-	valS = Optional(decimal, default = 0).setResultsName("validation_split")
+	valS = decimal.setResultsName("validation_split")
 
 	#Compose phrases and values together 
 	training = trainPhrase + trainS
 	testing = testPhrase + testS
-	val = valPhrase + valS
+	val = Optional(valPhrase + valS)
 
 	#Creating Optional Split phrases
 	split = Optional(splitKeyword + openParen + training + ocomma + testing + ocomma + val + closeParen)

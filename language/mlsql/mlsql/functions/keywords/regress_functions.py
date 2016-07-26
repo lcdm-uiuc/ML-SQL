@@ -3,13 +3,13 @@ Performs logic to handle the REGRESS keyword from ML-SQL language
 """
 from ..utils import string_helpers
 from sklearn.cross_validation import train_test_split
-from ..utils.algorithms import handle_regression_algorithm
+from ..utils.algorithms import handle_regress_algorithm
 
 def handle_regress(data, algorithm, preds, label, split = False, train = 1):
     """
     Performs logic to handle the CLUSTER keyword from ML-SQL language
     """
-    model = handle_regression_algorithm(algorithm)
+    model = handle_regress_algorithm(algorithm)
     if model is not None:
 
         #convert list of columns to integers and covert columns to start at 0
