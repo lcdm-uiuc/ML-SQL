@@ -40,8 +40,12 @@ def handle(parsing):
     if model is not None:
         _metrics_phase(model, X_test, y_test)
 
-    #regression
-    #classify = handle_regression(data, algo, predictors, label)
+    #save model to file if save keyword is included
+    if keywords_used["save"]:
+        sfile = parsing.savefile
+        print("something")
+        print(model)
+        save_model(sfile, model)
 
 
 def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, clusters = None):
@@ -80,13 +84,13 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     
     elif not keywords["classify"] and keywords["regress"] and not keywords["cluster"]:
         from .keywords.regress_functions import handle_regress
-        mod = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
-        return mod, None, None
+        mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
+        return mod, X_test, y_test
     
     elif not keywords["classify"] and not keywords["regress"] and keywords["cluster"]:
         from .keywords.cluster_functions import handle_cluster
-        mod = handle_cluster(df, algorithm, predictors, label, clusters, keywords["split"], train)
-        return mod, None, None
+        mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, keywords["split"], train)
+        return mod, X_test, y_test
 
     else:
         print("Error: two or more of the keywords cluster, classify, and regress are in the query")
