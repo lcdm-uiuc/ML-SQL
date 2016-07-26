@@ -78,17 +78,17 @@ ___
 
 #### Description
 
-Used to read in a raw data file from memory in order to create a machine learning model. The file must be in a csv like format.
+Used to read a raw data file from memory in order to create a machine learning model. The file must be in a csv like format.
 
 #### Usage
 ```
-READ "*file*" (header = ..., separator = "...")
+READ "file" (header = ..., separator = "...")
 ```
-*file* - specifies a memory location on the user's machine that can be read to create a machine learning model. The head of the data is displayed if the file is successfully read in. The path must be a relative path from the user's current directory. 
+*file* (required) - specifies a memory location on the user's machine that can be read to create a machine learning model. The head of the data is displayed if the file is successfully read in. The path must be a relative path from the user's current directory. 
 
 *header* - user specified parameter which indicates if there is a header present in the data. Possible options for this parameter are "True" (indicating there is a header on the first row), "False" (indicating there is no header), or any *int* (indicating that there is a header specification on a specific row other than the first row). By default this value will be False if it is not specified by the user. 
 
-*separtor* - user specified parameter which indicates if there is a different type of separator to properly read in the file. By default this value is "," if not specified by the user.
+*separator* - user specified parameter which indicates if there is a different type of separator to properly read in the file. By default this value is "," if not specified by the user.
 ___
 
 ### REPLACE
@@ -128,7 +128,14 @@ ___
 
 #### Description
 
-#### Options
+Used to read a machine learning model from a file with a ".mlsql" extension. This file must contained a model that has already been created using ML-SQL and has been saved. This keyword cannot be used with any other keyword in the model phase (will cause errors). 
+
+#### Usage
+```
+LOAD "file"
+```
+*file* (required) - specifies a memory location of a ".mlsql" file on the user's machine that contains a pretrained machine learning model. The path must be a relative path from the user's current directory. 
+
 ___
 
 ### SPLIT
@@ -160,4 +167,10 @@ ___
 
 #### Description
 
-#### Options
+Used to save a machine learning model to a ".mlsql" file. This keyword must be used with either the CLASSIFY, REGRESS, or CLUSTER keywords and should be placed at the end of a query.
+
+#### Usage
+```
+SAVE "file"
+```
+*file* (required) - specifies a memory location for a ".mlsql" file on the user's machine. The current model will be saved to this location for future use or portability. The path must be a relative path from the user's current directory. 
