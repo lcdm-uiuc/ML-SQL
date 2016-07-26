@@ -10,9 +10,11 @@ Parameters:
 """
 import .preprocessing.impute_functions 
 def handle_replace(dataframe, list_replaces):
+    ret = dataframe
     for item in list_replaces:
-        colNum = item[0]
-        misingVal = item[1]
+        colName = dataframe.columns[item[0]]
+        missingVal = item[1]
         strategy = item[2]
+        ret = impute_missing(data=dataframe, columns = colName, impute_strategy=strategy, missing_values = missingVal)
 
-        return 0
+    return ret
