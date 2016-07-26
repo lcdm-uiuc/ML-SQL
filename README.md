@@ -68,7 +68,9 @@ ___
 
 All strings (including all filepaths) must be placed in quotations ("..."). All integers must not be placed in quotes (including column numbers).
 
-Columns can either be specified as a single column (an integer) or as a list of columns which is a comma separated list of integers enclosed within brackets (ex. [1,2,3,...]).
+Commas are generally optionally in this language and for the most part can be omitted if the user chooses.
+
+All columns are addressed by their column number (starting at 1) instead of by their names. Columns can either be specified as a single column (ex. an integer) or as a list of columns which is a comma separated list of integers enclosed within brackets (ex. [1,2,3,...]).
 
 ___
 
@@ -102,25 +104,70 @@ ___
 ### CLASSIFY
 (Model phase)
 
-#### Description
+Used to run a classification machine learning task on a set of data that has already been read in using the READ keyword. The user must specify which column(s) they want to use as predictors and which column they want as the label (only a single column). The user must also specify an algorithm that they want to use and optionally their hyperparamters. The following classification algorithms have been implemented and are available for use: SVM, Naive Bayes, Logistic Regression, Random Forest, and K-Nearest Neighbors (KNN). This keyword cannot be used with the CLUSTER and REGRESS keywords.
 
-#### Options
+#### Usage
+```
+CLASSIFY (predictors = ..., label = ..., algorithm = ... (*options*))
+```
+*predictors* (required) - specifies the column numbers that will be used to generate a label. Generally they will be a list of column numbers in brackets. 
+
+*label* (required) - specifies the column number that specifies the label or the item that is looking to be predicted. Generally this will be a single column number (integer). 
+
+*algorithm* (required) - specifies the algorithm to be used in the classification task. Options for these algorithms can be specified inside of parenthesis after the algorithm declaration. A list of algorithms and their options can be found below. 
+
+#### Algorithms
+
+1. SVM (gamma = ..., C = ...) - **Support Vector machine** where *gamma* and *C* are optional integer parameters.
+1. Logistic (lambda = ...) - **Logistic Regression** where *lambda* is an optional decimal parameter specifying reguarlization (0 as default).
+1. Forest (trees = ...) - **Random Forest** where *trees* is an optional integer parameter specifying the number of trees to generate.
+1. KNN (neighbors = ...) - **K-Nearest Neighbors** where *neighbors* is an optional integer parameter specifying the number of nearest neighbors to use in the classification.
+
 ___
 
 ### REGRESS
 (Model phase)
 
-#### Description
+Used to run a regression machine learning task on a set of data that has already been read in using the READ keyword. The user must specify which column(s) they want to use as predictors and which column they want as the label (only a single column). The user must also specify an algorithm that they want to use and optionally their hyperparamters. The following regression algorithms have been implemented and are available for use: Simple Linear Regression, Lasso, Ridge, and Elastic Net. This keyword cannot be used with the CLASSIFY and CLUSTER keywords.
 
-#### Options
+#### Usage
+```
+REGRESS (predictors = ..., label = ..., algorithm = ... (*options*))
+```
+*predictors* (required) - specifies the column numbers that will be used to generate a label. Generally they will be a list of column numbers in brackets. 
+
+*label* (required) - specifies the column number that specifies the label or the item that is looking to be predicted. Generally this will be a single column number (integer). 
+
+*algorithm* (required) - specifies the algorithm to be used in the regression task. Options for these algorithms can be specified inside of parenthesis after the algorithm declaration. A list of algorithms and their options can be found below. 
+
+#### Algorithms
+
+1. Simple - **Simple Linear Regression**
+1. Lasso (lambda = ...) - **Lasso Regression**  where *lambda* is an optional decimal parameter specifying reguarlization (1 as default).
+1. Ridge (lambda = ...) - **Ridge Regression**  where *lambda* is an optional decimal parameter specifying reguarlization (1 as default).
+1. Elastic (alpha = ..., lambda = ...) - **Elastic Net Regression** where *alpha* is a required decimal parameter specifying the the percentage allocated towards the lasso (must be between 0 and 1). *lambda* is an optional decimal parameter specifying reguarlization (1 as default).
+
 ___
 
 ### CLUSTER
 (Model phase)
 
-#### Description
+Used to run a clustering machine learning task on a set of data that has already been read in using the READ keyword. The user must specify which column(s) they want to use as predictors. Optionally, a user can also specify the column they want as the label (only a single column) if this is available in the dataset. The user must also specify an algorithm that they want to use and optionally their hyperparamters. The following clustering algorithms have been implemented and are available for use: K-Means. This keyword cannot be used with the CLASSIFY and REGRESS keywords.
 
-#### Options
+#### Usage
+```
+CLUSTER (predictors = ..., label = ..., algorithm = ... (*options*))
+```
+*predictors* (required) - specifies the column numbers that will be used to generate a label. Generally they will be a list of column numbers in brackets. 
+
+*label* - specifies the column number that specifies the label or the item that is looking to be predicted. Generally this will be a single column number (integer). For clustering tasks this parameter does not have to be specified as it may not be included in the dataset. If it is available, the label can be used to help score the test data if the data is split at all.
+
+*algorithm* (required) - specifies the algorithm to be used in the clustering task. Options for these algorithms can be specified inside of parenthesis after the algorithm declaration. A list of algorithms and their options can be found below. 
+
+#### Algorithms
+
+1. KMeans (clusters = ...) - **K-Nearest Neighbors** where *clusters* is an optional integer parameter specifying the number of clusters to use (will default to 3).
+
 ___
 
 ### LOAD
