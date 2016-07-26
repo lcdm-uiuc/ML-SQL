@@ -46,4 +46,131 @@ from mlsql import repl
 repl()
 ```
 
+___
+___
+
+## ML-SQL Steps
+
+The MLSQL language is broken down into 3 major steps (keywords specified below):
+
+1. **Model Phase** - To build a machine learning model from a dataset or load/save a perviously built model from memory
+	- LOAD, SAVE, READ, REPLACE, CLASSIFY, REGRESS, CLUSTER
+1. **Apply Phase** - To apply a model to unknown data
+	- APPLY, SPLIT
+1. **Metrics Phase** - To get a numerical and graphical understanding of your data
+	- CALCUATE, PLOT
+
+The Apply and Metrics pahses build upon the Model phase to supply the user with useful results.
+
+___
+
 ## Language
+
+All strings (including all filepaths) must be placed in quotations ("..."). All integers must not be placed in quotes (including column numbers).
+
+Columns can either be specified as a single column (an integer) or as a list of columns which is a comma separated list of integers enclosed within brackets (ex. [1,2,3,...]).
+
+___
+
+### READ
+
+(Model phase)
+
+#### Description
+
+Used to read a raw data file from memory in order to create a machine learning model. The file must be in a csv like format.
+
+#### Usage
+```
+READ "file" (header = ..., separator = "...")
+```
+*file* (required) - specifies a memory location on the user's machine that can be read to create a machine learning model. The head of the data is displayed if the file is successfully read in. The path must be a relative path from the user's current directory. 
+
+*header* - user specified parameter which indicates if there is a header present in the data. Possible options for this parameter are "True" (indicating there is a header on the first row), "False" (indicating there is no header), or any *int* (indicating that there is a header specification on a specific row other than the first row). By default this value will be False if it is not specified by the user. 
+
+*separator* - user specified parameter which indicates if there is a different type of separator to properly read in the file. By default this value is "," if not specified by the user.
+___
+
+### REPLACE
+(Model phase)
+
+#### Description
+
+#### Options
+___
+
+### CLASSIFY
+(Model phase)
+
+#### Description
+
+#### Options
+___
+
+### REGRESS
+(Model phase)
+
+#### Description
+
+#### Options
+___
+
+### CLUSTER
+(Model phase)
+
+#### Description
+
+#### Options
+___
+
+### LOAD
+(Model phase)
+
+#### Description
+
+Used to read a machine learning model from a file with a ".mlsql" extension. This file must contained a model that has already been created using ML-SQL and has been saved. This keyword cannot be used with any other keyword in the model phase (will cause errors). 
+
+#### Usage
+```
+LOAD "file"
+```
+*file* (required) - specifies a memory location of a ".mlsql" file on the user's machine that contains a pretrained machine learning model. The path must be a relative path from the user's current directory. 
+
+___
+
+### SPLIT
+(Apply phase)
+
+#### Description
+
+#### Options
+___
+
+### APPLY
+(Apply phase)
+
+#### Description
+
+#### Options
+___
+
+### CALCULATE
+(Metrics Phase)
+
+#### Description
+
+#### Options
+___
+
+### SAVE
+(Model phase)
+
+#### Description
+
+Used to save a machine learning model to a ".mlsql" file. This keyword must be used with either the CLASSIFY, REGRESS, or CLUSTER keywords and should be placed at the end of a query.
+
+#### Usage
+```
+SAVE "file"
+```
+*file* (required) - specifies a memory location for a ".mlsql" file on the user's machine. The current model will be saved to this location for future use or portability. The path must be a relative path from the user's current directory. 

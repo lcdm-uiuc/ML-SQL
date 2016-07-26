@@ -17,6 +17,7 @@ def handle(parsing):
     replaceCols = parsing.replaceColumns
     replaceVal = parsing.replaceValue
     replaceIdent = parsing.replaceIdentifier
+    clusters = parsing.clusters
 
     #create a dictionary with all keywords
     keywords_used = keyword_check(parsing)
@@ -34,16 +35,20 @@ def handle(parsing):
     result += "replace identifier: " + str(replaceIdent) + "\n"
     print(result)
 
-    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo)
+    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo, clusters)
 
     if model is not None:
         _metrics_phase(model, X_test, y_test)
 
-    #regression
-    #classify = handle_regression(data, algo, predictors, label)
+    #save model to file if save keyword is included
+    if keywords_used["save"]:
+        sfile = parsing.savefile
+        print("something")
+        print(model)
+        save_model(sfile, model)
 
 
-def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm):
+def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, clusters = None):
     """
     Model phase of ML-SQL used to create a model
     Uses ML-SQL keywords: READ, REPLACE, SPLIT, CLASSIFY, REGRESSION
@@ -65,6 +70,7 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
 
     #Replace
     if keywords["replace"]:
+        print("Error: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
         pass
 
     #Classification and Regression
@@ -78,13 +84,13 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     
     elif not keywords["classify"] and keywords["regress"] and not keywords["cluster"]:
         from .keywords.regress_functions import handle_regress
-        mod = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
-        return mod, None, None
+        mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
+        return mod, X_test, y_test
     
     elif not keywords["classify"] and not keywords["regress"] and keywords["cluster"]:
         from .keywords.cluster_functions import handle_cluster
-        mod = handle_cluster(df, algorithm, predictors, keywords["split"], train)
-        return mod, None, None
+        mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, keywords["split"], train)
+        return mod, X_test, y_test
 
     else:
         print("Error: two or more of the keywords cluster, classify, and regress are in the query")

@@ -2,7 +2,7 @@ from .grammer import *
 from pyparsing import Word, Keyword, Optional, MatchFirst, Literal
 
 def define_read():
-    filename = Word(everything).setResultsName("filename")
+    filename = Word(everythingWOQuotes).setResultsName("filename")
 
     #define so that there can be multiple verisions of READ
     readKeyword = Keyword("read", caseless = True).setResultsName("read")
@@ -21,6 +21,6 @@ def define_read():
     #Compose Read Optionals
     readOptions = Optional(openParen + separator + ocomma +  header + closeParen)
 
-    read = readKeyword + filename + readOptions
+    read = readKeyword + Quote + filename + Quote + readOptions
     
     return read
