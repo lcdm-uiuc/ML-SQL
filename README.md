@@ -46,4 +46,62 @@ from mlsql import repl
 repl()
 ```
 
+___
+
+## ML-SQL Steps
+
+The MLSQL language is broken down into 3 major steps (keywords specified below):
+
+1. **Model Phase** - To build a machine learning model from a dataset or load/save a perviously built model from memory
+	- LOAD, SAVE, READ, REPLACE, CLASSIFY, REGRESS, CLUSTER
+1. **Apply Phase** - To apply a model to unknown data
+	- APPLY, SPLIT
+1. **Metrics Phase** - To get a numerical and graphical understanding of your data
+	- CALCUATE, PLOT
+
+The Apply and Metrics pahses build upon the Model phase to supply the user with useful results.
+
+___
+___
+
 ## Language
+
+### READ
+
+(Model phase)
+___
+
+### REPLACE
+(Model phase)
+___
+
+### CLASSIFY
+(Model phase)
+___
+
+### REGRESS
+(Model phase)
+___
+
+### CLUSTER
+(Model phase)
+___
+
+### LOAD
+(Model phase)
+___
+
+### SPLIT
+(Apply phase)
+___
+
+### APPLY
+(Apply phase)
+___
+
+### CALCULATE
+(Metrics Phase)
+___
+
+### SAVE
+(Model phase)
