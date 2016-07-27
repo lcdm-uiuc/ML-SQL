@@ -18,6 +18,8 @@ def handle(parsing):
     replaceVal = parsing.replaceValue
     replaceIdent = parsing.replaceIdentifier
     clusters = parsing.clusters
+    missingVal = parsing.replaceIdentifier
+    replaceVal = parsing.replaceValue
 
     #create a dictionary with all keywords
     keywords_used = keyword_check(parsing)
@@ -35,7 +37,7 @@ def handle(parsing):
     result += "replace identifier: " + str(replaceIdent) + "\n"
     print(result)
 
-    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo, clusters)
+    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo, (missingVal,replaceVal), clusters)
 
     if model is not None:
         _metrics_phase(model, X_test, y_test)
@@ -48,7 +50,7 @@ def handle(parsing):
         save_model(sfile, model)
 
 
-def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, clusters = None):
+def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, replace = None, clusters = None):
     """
     Model phase of ML-SQL used to create a model
     Uses ML-SQL keywords: READ, REPLACE, SPLIT, CLASSIFY, REGRESSION
@@ -70,11 +72,13 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
 
     #Replace
     if keywords["replace"]:
-        print("Error: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
+        from .keywords.replace_functions import handle_replace
+        df = handle_replace(df, [replace])
         pass
 
-    #Classification and Regression
+    #Classification and Regression and Cluster
     if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
+        print("Error: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
         return None, None, None
     
     elif keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:

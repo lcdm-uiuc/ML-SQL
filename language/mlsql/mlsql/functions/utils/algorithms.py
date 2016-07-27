@@ -14,7 +14,7 @@ def handle_classify_algorithm(algorithm):
         #random forest
         from sklearn.ensemble import RandomForestClassifier
         return RandomForestClassifier()
-    elif algo_name = 'bayes':
+    elif algo_name == 'bayes':
         from sklearn.naive_bayes import MultinomialNB
         return MultinomialNB()
     else:

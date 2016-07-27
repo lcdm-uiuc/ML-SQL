@@ -1,6 +1,6 @@
 from .grammer import *
 from ._constants import choice_columns, column
-from .classify_algorithms import svm, logistic, forest, bayes
+from .classify_algorithms import svm, logistic, forest, bayes, knn
 from pyparsing import Literal, oneOf, Optional, Word, OneOrMore, MatchFirst, delimitedList
 
 def define_classify():
@@ -11,6 +11,7 @@ def define_classify():
     logd = logistic.define_logistic()
     forestd = forest.define_forest()
     bayesd = bayes.define_bayes()
+    knnd = knn.define_knn()
     algo = algoPhrase + MatchFirst([svmd, logd, forestd, bayesd]).setResultsName("algorithm")
 
     #define so that there can be multiple verisions of Classify

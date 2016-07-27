@@ -21,8 +21,11 @@ def define_replace():
     single_replacement = openParen + replace_cols + ocomma + replace_missing + ocomma + replacements + closeParen
     group_replacements = delimitedList(single_replacement)
 
+    #temporary for a single demo (please remove later)
+    temp_replacement = openParen + replace_missing + ocomma + replacements + closeParen
+
     #putting it all together to create replacement
-    replace = Optional(replaceKeyword + group_replacements)
+    replace = Optional(replaceKeyword + temp_replacement)
 
     return replace
 
