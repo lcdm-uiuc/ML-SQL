@@ -81,7 +81,7 @@ def _remove_columns(data, delete_list):
 def _find_cols_with_missing_vals(data= None, missing_values= 'NaN'):
   cols_to_impute = list()
   if missing_values == 'NaN':
-    for col in f.columns:
+    for col in data.columns:
       if(data[col].isnull().values.any()):
         cols_to_impute.append(col)
   else:
