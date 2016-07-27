@@ -14,6 +14,9 @@ def handle_classify_algorithm(algorithm):
         #random forest
         from sklearn.ensemble import RandomForestClassifier
         return RandomForestClassifier()
+    elif algo_name = 'bayes':
+        from sklearn.naive_bayes import MultinomialNB
+        return MultinomialNB()
     else:
         print("Error: classification algorithm '" + algo_name + "' is not available")
         return None
@@ -31,6 +34,10 @@ def handle_regress_algorithm(algorithm):
         #random forest
         from sklearn import linear_model
         return linear_model.Ridge(alpha=0.1)
+    elif algo_name =='elastic net':
+        from sklearn.linear_model import ElasticNet
+        return ElasticNet(alpha=0.1)    
+
     else:
         print("Error: regression algorithm '" + algo_name + "' is not available")
         return None
