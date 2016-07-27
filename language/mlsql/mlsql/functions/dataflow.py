@@ -37,7 +37,7 @@ def handle(parsing):
     result += "replace identifier: " + str(replaceIdent) + "\n"
     print(result)
 
-    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo, (missingVal,replaceVal), clusters)
+    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo, (None, missingVal,replaceVal), clusters)
 
     if model is not None:
         _metrics_phase(model, X_test, y_test)
