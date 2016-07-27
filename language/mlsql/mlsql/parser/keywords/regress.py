@@ -1,7 +1,7 @@
 from .grammer import *
 from ._constants import choice_columns, column
 from pyparsing import Literal, Keyword, Optional, Word, MatchFirst
-from .regression_algorithms import simple, lasso, ridge
+from .regression_algorithms import simple, lasso, ridge, elastic
 
 def define_regress():
     #Algorithm keyword definitions
@@ -11,7 +11,8 @@ def define_regress():
     simpled = simple.define_simple()
     lassod = lasso.define_lasso()
     ridged = ridge.define_ridge()
-    algo = algoPhrase + MatchFirst([simpled, lassod, ridged]).setResultsName("algorithm")
+    elasticd = elastic.define_elastic()
+    algo = algoPhrase + MatchFirst([simpled, lassod, ridged, elasticd]).setResultsName("algorithm")
 
     #define so that there can be multiple verisions of Regression
     regressKeyword = Keyword("regress", caseless = True).setResultsName("regress")
