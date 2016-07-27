@@ -3,6 +3,9 @@ Processes input after it has been parsed. Performs the dataflow for input.
 """
 from .utils.modelIO import save_model
 from .utils.keywords import keyword_check
+from .keywords.preprocessing.encode_functions import encode_categorical
+import numpy as np
+
 
 def handle(parsing):
     #Extract relevant features from the query
@@ -75,6 +78,7 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
         from .keywords.replace_functions import handle_replace
         df = handle_replace(df, [replace])
         pass
+    df = encode_categorical(df)
 
     #Classification and Regression and Cluster
     if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
