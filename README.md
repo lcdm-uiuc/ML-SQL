@@ -98,7 +98,23 @@ ___
 
 #### Description
 
-#### Options
+Replaces a specified missing value in a read in dataset (using the READ keyword). 
+
+#### Usage
+```
+REPLACE ("missing value", "replacement value")
+```
+*missing value* (required) - specifies a decimal value (below 1) that defines the percentage of data to use for training. 
+
+*replacement value* (required) - specifies a value to repalce the missing value with. The replacement value can be a string or integer value or optionally a more general metric including:
+	
+	- mean
+	- mode
+	- median
+	- maximum
+	- minimum
+	- drop row
+	- drop column
 ___
 
 ### CLASSIFY
@@ -190,7 +206,18 @@ ___
 
 #### Description
 
-#### Options
+Splits a dataset that has been read in using the READ keyword into a training, testing, and optionally a validation set. The percentages are randomly split by percentages that add up to 1. 
+
+#### Usage
+```
+SPLIT (train = ..., test = ..., validation = ...)
+```
+*train* (required) - specifies a decimal value (below 1) that defines the percentage of data to use for training. 
+
+*test* (required) - specifies a decimal value (below 1) that defines the percentage of data to use for testing. 
+
+*validation* - specifies a decimal value (below 1) that defines the percentage of data to use for a validation set. 
+
 ___
 
 ### APPLY
