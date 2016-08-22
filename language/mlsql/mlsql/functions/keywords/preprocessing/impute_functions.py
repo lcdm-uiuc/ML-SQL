@@ -85,7 +85,7 @@ def _find_cols_with_missing_vals(data= None, missing_values= 'NaN'):
       if(data[col].isnull().values.any()):
         cols_to_impute.append(col)
   else:
-    for col in f.columns:
+    for col in data.columns:
       if missing_values in data[col]:
         cols_to_impute.append(col)
   return cols_to_impute

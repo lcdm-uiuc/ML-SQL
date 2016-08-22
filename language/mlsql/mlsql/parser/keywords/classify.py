@@ -12,7 +12,7 @@ def define_classify():
     forestd = forest.define_forest()
     bayesd = bayes.define_bayes()
     knnd = knn.define_knn()
-    algo = algoPhrase + MatchFirst([svmd, logd, forestd, bayesd]).setResultsName("algorithm")
+    algo = algoPhrase + MatchFirst([svmd, logd, forestd, bayesd, knnd]).setResultsName("algorithm")
 
     #define so that there can be multiple verisions of Classify
     classifyKeyword = oneOf(["Classify", "CLASSIFY"]).setResultsName("classify")

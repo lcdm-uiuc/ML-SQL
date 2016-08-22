@@ -17,6 +17,9 @@ def handle_classify_algorithm(algorithm):
     elif algo_name == 'bayes':
         from sklearn.naive_bayes import MultinomialNB
         return MultinomialNB()
+    elif algo_name == 'knn':
+        from sklearn.neighbors import KNeighborsClassifier
+        return KNeighborsClassifier(n_neighbors=5)
     else:
         print("Error: classification algorithm '" + algo_name + "' is not available")
         return None
