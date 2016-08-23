@@ -37,7 +37,7 @@ def handle_regress_algorithm(algorithm):
         #random forest
         from sklearn import linear_model
         return linear_model.Ridge(alpha=0.1)
-    elif algo_name =='elastic net':
+    elif algo_name =='elastic':
         from sklearn.linear_model import ElasticNet
         return ElasticNet(alpha=0.1)    
 
