@@ -5,5 +5,9 @@
 #Ipython Checkpoints
 *.ipynb_checkpoints
 
+#Data folder
+/language/mlsql/mlsql/test/data
+
+
 #Python Caches
 __pycache__
