@@ -11,6 +11,8 @@ def handle_cluster(data, algorithm, preds, label = None, clusters = 3, split = F
     """
     model = handle_cluster_algorithm(algorithm)
     if model is not None:
+        if clusters is '':
+            clusters = '3'
         model.n_clusters = int(clusters)
 
         #convert list of columns to integers and covert columns to start at 0

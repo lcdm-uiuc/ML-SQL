@@ -78,7 +78,7 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
         from .keywords.replace_functions import handle_replace
         df = handle_replace(df, [replace])
         pass
-        
+
     # Encode all categorical values
     df = encode_categorical(df)
 
