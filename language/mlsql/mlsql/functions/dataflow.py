@@ -77,11 +77,11 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     if keywords["replace"]:
         from .keywords.replace_functions import handle_replace
         df = handle_replace(df, [replace])
+        print(df.head())
         pass
 
     # Encode all categorical values
     df = encode_categorical(df)
-
     #Classification and Regression and Cluster
     if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
         print("Error: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
