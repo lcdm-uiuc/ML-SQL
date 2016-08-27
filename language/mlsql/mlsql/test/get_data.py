@@ -5,7 +5,7 @@ path  = 'data'
 
 NAMES = {
     ''
-    
+
 }
 DATASETS = (
     'https://raw.githubusercontent.com/mxhao2/MLSQL_DataSets/master/auto.csv',
