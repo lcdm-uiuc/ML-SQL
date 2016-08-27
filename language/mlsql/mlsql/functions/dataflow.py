@@ -6,8 +6,30 @@ from .utils.keywords import keyword_check
 from .keywords.preprocessing.encode_functions import encode_categorical
 import numpy as np
 
+def summary_msg(filename, header, sep, train, test, predictors, label, algo, replaceCols, replaceVal, replaceIdent, clusters, missingVal, verbose=False):
+    """
+    Prints out detailed  summary message if verbose is True. Or simple summary message.
+    """
+    if verbose:
+        print (\
+'''
+mlsql Summary:
+=============================================
+=============================================
+   Dataset:        %s
+   Delimiter:      %s
+   Training Set Split:       %.2f%%
+   Testing Set Split:        %.2f%%
+   Predictiors:        %s
+   Label:         %s
+   Algorithm:     %s
+=============================================
+=============================================
+''' % (filename, sep, float(train)*100, float(test)*100, predictors, label, algo))
+    else:
+        print ('Using %s Algorithm, the dataset is from: %s. Currently using Predictors from column(s) %s and Label(s) from column(s) %s. ' % (algo, filename, predictors, label) )
 
-def handle(parsing):
+def handle(parsing, verbose):
     #Extract relevant features from the query
     filename = parsing.filename
     header = parsing.header
@@ -27,20 +49,9 @@ def handle(parsing):
     #create a dictionary with all keywords
     keywords_used = keyword_check(parsing)
 
-    result = "filename: " + filename + "\n"
-    result += "header: " + header + "\n"
-    result += "separator: " + sep + "\n"
-    result += "train size: " + train + "\n"
-    result += "test size: " + test + "\n"
-    result += "predictors: " + str(predictors) + "\n"
-    result += "label: " + str(label) + "\n"
-    result += "algorithm: " + str(algo) + "\n"
-    result += "replace columns: " + str(replaceCols) + "\n"
-    result += "replace value: " + str(replaceVal) + "\n"
-    result += "replace identifier: " + str(replaceIdent) + "\n"
-    print(result)
+    summary_msg(filename, header, sep, train, test, predictors, label, algo, replaceCols, replaceVal, replaceIdent, clusters, missingVal, verbose)
 
-    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo, (None, missingVal,replaceVal), clusters)
+    model, X_test, y_test = _model_phase(keywords_used, filename, header, sep, train, predictors, label, algo, (None, missingVal,replaceVal), clusters, verbose)
 
     if model is not None:
         _metrics_phase(model, X_test, y_test)
@@ -53,7 +64,7 @@ def handle(parsing):
         save_model(sfile, model)
 
 
-def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, replace = None, clusters = None):
+def _model_phase(keywords, filename, header, sep, train, predictors, label, algorithm, replace = None, clusters = None, verbose=False):
     """
     Model phase of ML-SQL used to create a model
     Uses ML-SQL keywords: READ, REPLACE, SPLIT, CLASSIFY, REGRESSION
@@ -69,22 +80,42 @@ def _model_phase(keywords, filename, header, sep, train, predictors, label, algo
     if keywords["read"]:
         from .keywords.read_functions import handle_read
         df = handle_read(filename, sep, header)
-    if df is not None:
-        #Data was read in properly
-        print(df.head())
+
+        if df is not None and verbose is True:
+            #Data was read in properly
+
+            print(\
+"""
+Header of Dataset (%s):
+=============================================
+=============================================
+%s
+=============================================
+=============================================""" % (filename, df.head()) )
 
     #Replace
     if keywords["replace"]:
         from .keywords.replace_functions import handle_replace
         df = handle_replace(df, [replace])
-        print(df.head())
-        pass
+
+        if df is not None and verbose is True:
+            #Data was read in properly
+            print(\
+"""
+Updated Dataset (%s):
+=============================================
+=============================================
+        %s
+=============================================
+=============================================""" % (filename, df.head()) )
 
     # Encode all categorical values
     df = encode_categorical(df)
     #Classification and Regression and Cluster
     if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
-        print("Error: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
+        # KI: Rationale behind changining Error to Warning is that the user may 
+        # Want to just read data...
+        print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
         return None, None, None
     
     elif keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
@@ -123,6 +154,6 @@ def _metrics_phase(model, X_test, y_test):
     """
     #Performance on test data
     if X_test is not None and y_test is not None:
-        print(model.score(X_test, y_test))
+        print("Testing Accuracy: %.2f%%" % (model.score(X_test, y_test) * 100))
     else:
         return None
