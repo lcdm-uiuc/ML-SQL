@@ -10,7 +10,7 @@ Parameters:
   data: Dataframe to impute missing values on
   columns: Columns to impute. If None, impute all columns
   impute_strategy: What to replace missing values with
-     Options: 
+     Options:
       Imputer Class
       'most frequent'
       'median'
@@ -74,7 +74,7 @@ def impute_missing(data, columns=None, impute_strategy='mode', missing_values='N
         datacopy[col] = data[col].replace(missing_values, minVal, regex = True)
     return data
   elif impute_strategy == 'dummy':
-    return data.replace(missing_values, dummy_val, regex = True) 
+    return data.replace(missing_values, dummy_val, regex = True)
   # Do some more research on this before implementing
   elif impute_strategy == 'rand_forest_reg':
     print("RANDOM FOREST REGRESSOR NOT IMPLEMENTED NO IMPUTATION HAPPENED")
@@ -89,7 +89,7 @@ Parameters:
   data: dataframe to remove columns
   delete_list: list of names of columns to delete
 Returns:
-  Dataframe with deleted columns 
+  Dataframe with deleted columns
 """
 def _remove_columns(data, delete_list):
   for col in delete_list:
@@ -104,6 +104,8 @@ def _find_cols_with_missing_vals(data= None, missing_values= 'NaN'):
         cols_to_impute.append(col)
   else:
     for col in data.columns:
-      if data[col].str.contains(missing_values).any():
-        cols_to_impute.append(col)
-  return cols_to_impute
+        print(data[col].dtype)
+        if data[col].dtype == 'object':
+            if data[col].str.contains(missing_values).any():
+                cols_to_impute.append(col)
+    return cols_to_impute
