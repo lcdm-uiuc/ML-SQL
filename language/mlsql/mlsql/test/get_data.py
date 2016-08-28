@@ -17,7 +17,7 @@ DATASETS = (
     base_url + 'wine.csv',
 )
 
-def download_data(path , urls=DATASETS):
+def download_data(path=path , urls=DATASETS):
     if not os.path.exists(path):
         os.mkdir(path)
 
@@ -28,4 +28,4 @@ def download_data(path , urls=DATASETS):
             f.write(response.content)
 
 
-download_data('path')
+download_data()
