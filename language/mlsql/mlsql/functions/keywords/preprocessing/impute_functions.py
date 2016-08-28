@@ -98,17 +98,15 @@ def _remove_columns(data, delete_list):
       del data[col]
   return data
 
-def _find_cols_with_missing_vals(data= None, missing_values= 'NaN'):
+def _find_cols_with_missing_vals(data=None, missing_values= 'NaN'):
   cols_to_impute = list()
   if missing_values == 'NaN':
-    print('Nan')
     for col in data.columns:
-      if(data[col].isnull().values.any()):
+      if data[col].isnull().values.any():
         cols_to_impute.append(col)
   else:
     for col in data.columns:
-        print(data[col].dtype)
         if data[col].dtype == 'object':
             if data[col].str.contains(missing_values).any():
                 cols_to_impute.append(col)
-    return cols_to_impute
+  return cols_to_impute
