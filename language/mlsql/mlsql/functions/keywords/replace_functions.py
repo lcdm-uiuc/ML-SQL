@@ -14,6 +14,7 @@ def handle_replace(dataframe, list_replaces):
     for item in list_replaces:
         missingVal = item[1]
         strategy = item[2]
-        ret = impute_missing(data=dataframe, columns = None, impute_strategy=strategy, missing_values = missingVal)
+        ret = impute_missing(data=dataframe, columns = None,\
+         impute_strategy=strategy, missing_values = missingVal)
 
     return ret

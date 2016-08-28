@@ -31,6 +31,8 @@ def impute_missing(data, columns=None, impute_strategy='mode', missing_values='N
     cols_to_impute = _find_cols_with_missing_vals(data, missing_values)
   else:
     cols_to_impute = columns
+  if cols_to_impute == None:
+    return datacopy
   if impute_strategy == 'mode':
     for col in cols_to_impute:
       modeVal = data[col].mode()
@@ -99,6 +101,7 @@ def _remove_columns(data, delete_list):
 def _find_cols_with_missing_vals(data= None, missing_values= 'NaN'):
   cols_to_impute = list()
   if missing_values == 'NaN':
+    print('Nan')
     for col in data.columns:
       if(data[col].isnull().values.any()):
         cols_to_impute.append(col)
