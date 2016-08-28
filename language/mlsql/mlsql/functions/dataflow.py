@@ -1,5 +1,5 @@
 """
-Processes input after it has been parsed. Performs the dataflow for input. 
+Processes input after it has been parsed. Performs the dataflow for input.
 """
 from .utils.modelIO import save_model
 from .utils.keywords import keyword_check
@@ -113,21 +113,21 @@ Updated Dataset (%s):
     df = encode_categorical(df)
     #Classification and Regression and Cluster
     if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
-        # KI: Rationale behind changining Error to Warning is that the user may 
+        # KI: Rationale behind changining Error to Warning is that the user may
         # Want to just read data...
         print("Warning: model cannot be built since CLASSIFY, REGRESS, or CLUSTER not specified")
         return None, None, None
-    
+
     elif keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
         from .keywords.classify_functions import handle_classify
         mod, X_test, y_test = handle_classify(df, algorithm, predictors, label, keywords["split"], train)
         return mod, X_test, y_test
-    
+
     elif not keywords["classify"] and keywords["regress"] and not keywords["cluster"]:
         from .keywords.regress_functions import handle_regress
         mod, X_test, y_test = handle_regress(df, algorithm, predictors, label, keywords["split"], train)
         return mod, X_test, y_test
-    
+
     elif not keywords["classify"] and not keywords["regress"] and keywords["cluster"]:
         from .keywords.cluster_functions import handle_cluster
         mod, X_test, y_test = handle_cluster(df, algorithm, predictors, label, clusters, keywords["split"], train)
