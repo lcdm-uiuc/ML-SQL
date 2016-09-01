@@ -33,10 +33,8 @@ def impute_missing(data, columns=None, impute_strategy='mode', missing_values='N
     if not cols_to_impute:
         return datacopy
     if impute_strategy == 'mode':
-        print(cols_to_impute)
         for col in cols_to_impute:
             modeVal = data[col].mode()
-            print(modeVal[0])
             datacopy[col] = _fill_col(data[col], missing_values, modeVal[0])
         return datacopy
     elif impute_strategy == 'mean':

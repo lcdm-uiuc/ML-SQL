@@ -13,7 +13,7 @@ def handle_read(userfile, separator, header):
     if is_mlsql_file(userfile):
         model = load_model(userfile)
     else:
-        return _read_data_file(userfile, separator, header)   
+        return _read_data_file(userfile, separator, header)
 
 
 def _read_data_file(userfile, separator, header):
@@ -34,7 +34,10 @@ def _read_data_file(userfile, separator, header):
 
     #attempt to read file with given parameters
     try:
-        df = read_csv(userfile, sep = separ, header = head)
+        if head is None:
+            df = read_csv(userfile, sep=separ, header=None)
+        else:
+            df = read_csv(userfile, sep = separ, header = head)
     except OSError as e:
         print("Error importing file: '" + userfile + "'")
         print(e)
@@ -46,7 +49,8 @@ def _handle_header(header):
     """
     Translates header into a proper value to be read by read_csv functions from pandas
     """
-    if header is None or header == "":
+
+    if header is None or header == "" or header == "None":
         return None
     elif header == "False":
         return None

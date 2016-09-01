@@ -109,8 +109,10 @@ Updated Dataset (%s):
 =============================================
 =============================================""" % (filename, df.head()) )
 
+    df.to_csv('temp.csv')
+
     # Encode all categorical values
-    df = encode_categorical(df)
+    # df = encode_categorical(df)
     #Classification and Regression and Cluster
     if not keywords["classify"] and not keywords["regress"] and not keywords["cluster"]:
         # KI: Rationale behind changining Error to Warning is that the user may
