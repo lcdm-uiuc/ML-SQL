@@ -12,9 +12,9 @@ Parameters:
   impute_strategy: What to replace missing values with
      Options:
       Imputer Class
-      'most frequent'
-      'median'
-      'mean'
+      'mode'
+      'median' - numerical
+      'mean' - numerical
       Custom Functions
       'remove'
       'dummy'
@@ -30,59 +30,63 @@ def impute_missing(data, columns=None, impute_strategy='mode', missing_values='N
         cols_to_impute = _find_cols_with_missing_vals(data, missing_values)
     else:
         cols_to_impute = columns
-    if cols_to_impute == None:
+    if not cols_to_impute:
         return datacopy
     if impute_strategy == 'mode':
+        print(cols_to_impute)
         for col in cols_to_impute:
             modeVal = data[col].mode()
-            if missing_values =='NaN':
-                datacopy[col] = data[col].fillna(modeVal[0])
-            else:
-                datacopy[col] = data[col].replace(missing_values, modeVal[0], regex = True)
+            print(modeVal[0])
+            datacopy[col] = _fill_col(data[col], missing_values, modeVal[0])
         return datacopy
     elif impute_strategy == 'mean':
         for col in cols_to_impute:
-            meanVal = data[col].mean()
-            if missing_values == 'NaN':
-                datacopy[col] = data[col].fillna(meanVal)
+            if data[col].dtype != 'object':
+                meanVal = data[col].mean()
+                datacopy[col] = _fill_col(data[col], missing_values, meanVal)
             else:
-                datacopy[col] = data[col].replace(missing_values, meanVal, regex = True)
-            return datacopy
+                datacopy[col] = _fill_col(data[col], missing_values, dummy_val)
+        return datacopy
     elif impute_strategy == 'median':
         for col in cols_to_impute:
-            medianVal = data[col].median()
-            if missing_values == 'NaN':
-                datacopy[col] = data[col].fillna(medianVal)
+            if data[col].dtype != 'object':
+                medianVal = data[col].median()
+                datacopy[col] = _fill_col(data[col], missing_values, medianVal)
             else:
-                datacopy[col] = data[col].replace(missing_values, medianVal, regex = True)
-            return datacopy
+                datacopy[col] = _fill_col(data[col], missing_values, dummy_val)
+        return datacopy
     elif impute_strategy == 'drop column':
         return _remove_columns(data, cols_to_impute)
     elif impute_strategy == 'maximum':
         for col in cols_to_impute:
-            maxVal = max(data[col])
-            if missing_values == 'NaN':
-                datacopy[col] = data[col].fillna(maxVal)
+            if data[col].dtype != 'object':
+                maxVal = max(data[col])
+                datacopy[col] = _fill_col(data[col], missing_values, maxVal)
             else:
-                datacopy[col] = data[col].replace(missing_values, maxVal, regex = True)
-        return data
+                datacopy[col] =  _fill_col(data[col], missing_values, dummy_val)
+        return datacopy
     elif impute_strategy == 'minimum':
         for col in cols_to_impute:
-            minVal = min(data[col])
-            if missing_values == 'NaN':
-                datacopy[col] = data[col].fillna(minVal)
+            if data[col].dtype != 'object':
+                minVal = min(data[col])
+                datacopy[col] = _fill_col(data[col], missing_values, minVal)
             else:
-                datacopy[col] = data[col].replace(missing_values, minVal, regex = True)
-        return data
+                datacopy[col] = _fill_col(data[col], missing_values, dummy_val)
+        return datacopy
     elif impute_strategy == 'dummy':
-        return data.replace(missing_values, dummy_val, regex = True)
+        for col in cols_to_impute:
+            if data[col].dtype != 'object':
+                datacopy[col] = _fill_col(data[col], missing_values, 0)
+            else:
+                datacopy[col] = _fill_col(data[col], missing_values, dummy_val)
+        return datacopy
   # Do some more research on this before implementing
     elif impute_strategy == 'rand_forest_reg':
         print("RANDOM FOREST REGRESSOR NOT IMPLEMENTED NO IMPUTATION HAPPENED")
-        return None
+        return datacopy
     else:
-        print ("REPLACE COMMAND NOT RECOGNIZED")
-        return None
+        print ("REPLACE COMMAND NOT RECOGNIZED NO IMPUTATION HAPPENED")
+        return datacopy
 
 """
 remove_columns()
@@ -109,3 +113,11 @@ def _find_cols_with_missing_vals(data=None, missing_values= 'NaN'):
                 if data[col].str.contains(missing_values).any():
                     cols_to_impute.append(col)
     return cols_to_impute
+
+def _fill_col(column, missing_values, replace_val):
+    ret = column
+    if missing_values == 'NaN':
+        ret = column.fillna(replace_val)
+    else:
+        ret = column.replace(missing_values, replace_val, regex = True)
+    return ret
